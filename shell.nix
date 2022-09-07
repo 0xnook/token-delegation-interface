@@ -1,20 +1,38 @@
-{ pkgs ? import <nixpkgs> {} }:
-pkgs.mkShell {
-    # nativeBuildInputs is usually what you want -- tools you need to run
-    nativeBuildInputs = [ pkgs.cargo ];
+{ mkShell, git, nodejs, solc, foundry-bin }:
+
+mkShell {
+    nativeBuildInputs = [ git nodejs foundry-bin solc ];
     shellHook = ''
-        # check if foundry is installed
-        if [ ! -f ~/.cargo/bin/forge ] || [ ! -f ~/.cargo/bin/anvil ]
+        # check if node dependencies are installed
+        if [ ! -d ./node_modules ] 
         then
-            echo "Foundry not found, installing"
-            cargo install --git https://github.com/foundry-rs/foundry --profile local --locked foundry-cli anvil
+            echo "node_modules not present, installing"
+            npm install
         fi
 
-        # add cargo binaries to path
-        export PATH=$PATH:~/.cargo/bin/
+        # add npm binaries to path
+        export PATH="$PWD/node_modules/.bin/:$PATH"
 
-        # to deploy contracts:
-        # forge create --rpc-url http://127.0.0.1:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 src/DelegationRegistry.sol:DelegationRegistry
+        # clone contract submodules if not present
+        if [ ! -f ./token-delegation/foundry.toml ] 
+        then
+          git submodule init
+          git submodule update 
+        fi
+
+        # compile contracts 
+        # need to descend into contract submodule cus forge -c fails
+        if [ ! -d ./token-delegation/out ] 
+        then
+            cd token-delegation
+            forge build
+            # needs to be run twice for some reason
+            forge build
+            cd ..
+        fi
+
+        # make shell scripts executable
+        chmod +x deploy-contracts.sh
     '';
 }
 
