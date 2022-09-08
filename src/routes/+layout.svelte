@@ -1,7 +1,7 @@
 <script>
-	import {accountModalHidden} from '../store';
-	import Header from '../components/Header.svelte';
-	import AccountModal from '../components/AccountModal.svelte';
+import { accountModalHidden } from '../store';
+import Header from '../components/Header.svelte';
+import AccountModal from '../components/AccountModal.svelte';
 </script>
 
 <Header />

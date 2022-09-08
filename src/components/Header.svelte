@@ -1,7 +1,7 @@
 <script lang="ts">
-	import {signerAddress} from 'svelte-ethers-store';
-	import {accountModalHidden} from '../store';
-	import {toShortAddress} from '../utils';
+import { signerAddress } from 'svelte-ethers-store';
+import { accountModalHidden } from '../store';
+import { toShortAddress } from '../utils';
 </script>
 
 <header class="header">
@@ -14,11 +14,11 @@
 </header>
 
 <style>
-	.header {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		margin: 1rem;
-	}
+.header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin: 1rem;
+}
 </style>

@@ -1,9 +1,9 @@
 <script lang="ts">
-import {defaultEvmStores, connected, signerAddress, chainData} from 'svelte-ethers-store';
-import {onMount, onDestroy} from 'svelte';
+import { defaultEvmStores, connected, signerAddress, chainData } from 'svelte-ethers-store';
+import { onMount, onDestroy } from 'svelte';
 
-import {clickOutside, toShortAddress, handleConnect} from '../utils';
-import {providerType} from '../store';
+import { clickOutside, toShortAddress, handleConnect } from '../utils';
+import { providerType } from '../store';
 
 import Copy from '../../static/icons/copy.svg';
 import Check from '../../static/icons/check.svg';
@@ -33,7 +33,7 @@ function handleOutsideClick() {
 
 async function handleDisconnect() {
 	defaultEvmStores.disconnect();
-	$providerType = undefined;
+	$providerType = null;
 	localStorage.removeItem('providerType');
 	localStorage.removeItem('walletconnect');
 	hide = true;
@@ -74,7 +74,8 @@ onDestroy(() => {
 						</div>
 					{/if}
 					<div
-						on:click={() => window.open($chainData.explorers[0].url + '/address/' + $signerAddress, '_blank')}
+						on:click={() =>
+							window.open($chainData.explorers[0].url + '/address/' + $signerAddress, '_blank')}
 						class="mini-button"
 					>
 						<Link width="0.8rem" />&nbsp;View in block explorer
@@ -86,7 +87,13 @@ onDestroy(() => {
 				<b>Connect</b>
 			</div>
 			<div class="modal-body">
-				<div on:click={handleConnect('metamask').then(()=>{changing=false})} class="round-border provider-option">
+				<div
+					on:click={() =>
+						handleConnect('metamask').then(() => {
+							changing = false;
+						})}
+					class="round-border provider-option"
+				>
 					<div>
 						<span class:hide={$providerType !== 'metamask'}>&#8226;</span>
 						Metamask

@@ -1,10 +1,10 @@
 <script lang="ts">
-import {onMount} from 'svelte';
-import {connected, chainId} from 'svelte-ethers-store';
+import { onMount } from 'svelte';
+import { connected, chainId } from 'svelte-ethers-store';
 
-import {handleConnect, attachContracts} from '../utils';
-import {providerType, connectedToSupportedChain} from '../store';
-import DelegationRegistryInterface from "../components/DelegationRegistryInterface.svelte";
+import { handleConnect, attachContracts } from '../utils';
+import { providerType, connectedToSupportedChain } from '../store';
+import DelegationRegistryInterface from '../components/DelegationRegistryInterface.svelte';
 
 // reattach contracts on chainId change
 $: $chainId && $connectedToSupportedChain && attachContracts();
@@ -20,4 +20,4 @@ onMount(async () => {
 });
 </script>
 
-<DelegationRegistryInterface/>
+<DelegationRegistryInterface />

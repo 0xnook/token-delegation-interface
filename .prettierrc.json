@@ -5,7 +5,8 @@
 	"semi": true,
 	"printWidth": 100,
 	"singleQuote": true,
-	"bracketSpacing": false,
+	"bracketSpacing": true,
 	"pluginSearchDirs": ["."],
-	"overrides": [{"files": "*.svelte", "options": {"parser": "svelte"}}]
+	"svelteIndentScriptAndStyle": false,
+	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
 }
