@@ -1,5 +1,23 @@
 <script lang="ts">
-import ContractInterface from "../components/ContractInterface.svelte";
+import {onMount} from 'svelte';
+import {connected, chainId} from 'svelte-ethers-store';
+
+import {handleConnect, attachContracts} from '../utils';
+import {providerType, connectedToSupportedChain} from '../store';
+import DelegationRegistryInterface from "../components/DelegationRegistryInterface.svelte";
+
+// reattach contracts on chainId change
+$: $chainId && $connectedToSupportedChain && attachContracts();
+
+onMount(async () => {
+	if (!$connected) {
+		if ($providerType === 'metamask') {
+			handleConnect('metamask');
+		} else if ($providerType === 'walletconnect') {
+			/* handleWalletConnectProvider(); */
+		}
+	}
+});
 </script>
 
-<ContractInterface/>
+<DelegationRegistryInterface/>

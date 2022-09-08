@@ -1,63 +1,52 @@
 <script lang="ts">
-	import {defaultEvmStores, connected, signerAddress} from 'svelte-ethers-store';
-	import {onMount, onDestroy} from 'svelte';
+import {defaultEvmStores, connected, signerAddress, chainData} from 'svelte-ethers-store';
+import {onMount, onDestroy} from 'svelte';
 
-	import {clickOutside, toShortAddress} from '../utils';
-	import {providerType} from '../store';
+import {clickOutside, toShortAddress, handleConnect} from '../utils';
+import {providerType} from '../store';
 
-	import Copy from '../../static/icons/copy.svg';
-	import Check from '../../static/icons/check.svg';
-	import Link from '../../static/icons/link.svg';
+import Copy from '../../static/icons/copy.svg';
+import Check from '../../static/icons/check.svg';
+import Link from '../../static/icons/link.svg';
 
-	export let hide = false;
-	export let blockExplorerURL: string;
+export let hide = false;
 
-	let delayPassed = false;
-	let hideTimeOutId: number;
+let delayPassed = false;
+let hideTimeOutId: number;
 
-	$: changing = false;
-	$: copying = false;
+$: changing = false;
+$: copying = false;
 
-	async function handleCopy() {
-		navigator.clipboard.writeText($signerAddress);
-		copying = true;
-		await new Promise((r) => setTimeout(r, 1000));
-		copying = false;
-	}
+async function handleCopy() {
+	navigator.clipboard.writeText($signerAddress);
+	copying = true;
+	await new Promise((r) => setTimeout(r, 1000));
+	copying = false;
+}
 
-	function handleOutsideClick() {
-		if (delayPassed) {
-			changing = false;
-			hide = true;
-		}
-	}
-
-	async function handleMetamaskConnect() {
-		await defaultEvmStores.setProvider();
+function handleOutsideClick() {
+	if (delayPassed) {
 		changing = false;
-	}
-
-	async function handleDisconnect() {
-		defaultEvmStores.disconnect();
-		localStorage.removeItem('walletconnect');
 		hide = true;
 	}
+}
 
-	onMount(async () => {
-		if (!$connected) {
-			if ($providerType === 'metamask') {
-				handleMetamaskConnect();
-			} else if ($providerType === 'walletconnect') {
-				/* handleWalletConnectProvider(); */
-			}
-		}
-		hideTimeOutId = await new Promise((r) => setTimeout(r, 1000));
-		delayPassed = true;
-	});
+async function handleDisconnect() {
+	defaultEvmStores.disconnect();
+	$providerType = undefined;
+	localStorage.removeItem('providerType');
+	localStorage.removeItem('walletconnect');
+	hide = true;
+}
 
-	onDestroy(() => {
-		clearTimeout(hideTimeOutId);
-	});
+onMount(async () => {
+	hideTimeOutId = await new Promise((r) => setTimeout(r, 1000));
+	delayPassed = true;
+});
+
+onDestroy(() => {
+	clearTimeout(hideTimeOutId);
+});
 </script>
 
 <section class:hide class="modal">
@@ -85,7 +74,7 @@
 						</div>
 					{/if}
 					<div
-						on:click={() => window.open(blockExplorerURL + '/address/' + $signerAddress, '_blank')}
+						on:click={() => window.open($chainData.explorers[0].url + '/address/' + $signerAddress, '_blank')}
 						class="mini-button"
 					>
 						<Link width="0.8rem" />&nbsp;View in block explorer
@@ -97,7 +86,7 @@
 				<b>Connect</b>
 			</div>
 			<div class="modal-body">
-				<div on:click={handleMetamaskConnect} class="round-border provider-option">
+				<div on:click={handleConnect('metamask').then(()=>{changing=false})} class="round-border provider-option">
 					<div>
 						<span class:hide={$providerType !== 'metamask'}>&#8226;</span>
 						Metamask
@@ -118,129 +107,129 @@
 </section>
 
 <style>
-	.modal {
-		position: fixed;
-		z-index: 3;
-		left: 0;
-		top: 0;
-		overflow: auto;
-		width: 100%;
-		height: 100%;
-		background-color: rgba(60, 60, 60, 0.8);
-		padding-top: 50px;
-	}
+.modal {
+	position: fixed;
+	z-index: 3;
+	left: 0;
+	top: 0;
+	overflow: auto;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(60, 60, 60, 0.8);
+	padding-top: 50px;
+}
 
-	.modal-content {
-		z-index: 4;
-		border: 2px solid black;
-		border-radius: 7px;
-		max-width: 22rem;
-		margin: auto;
-		background-color: white;
-		opacity: 1;
-		padding: 2rem;
-		text-align: center;
-	}
+.modal-content {
+	z-index: 4;
+	border: 2px solid black;
+	border-radius: 7px;
+	max-width: 22rem;
+	margin: auto;
+	background-color: white;
+	opacity: 1;
+	padding: 2rem;
+	text-align: center;
+}
 
-	.modal-body {
-		display: flex;
-		flex-direction: column;
-		text-align: left;
-		padding: 1rem;
-		color: black;
-	}
+.modal-body {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	padding: 1rem;
+	color: black;
+}
 
-	p {
-		display: inline-block;
-		margin: 0.5rem 0 0.5rem 0;
-		cursor: pointer;
-		color: black;
-	}
+p {
+	display: inline-block;
+	margin: 0.5rem 0 0.5rem 0;
+	cursor: pointer;
+	color: black;
+}
 
-	.mini-pill-button {
-		border: 1px solid black;
-		border-radius: 8px;
-		cursor: pointer;
-		height: 2rem;
-		width: 10rem;
-		margin: 1rem;
-		font-weight: 700;
-		margin: 1rem auto auto auto !important;
-	}
+.mini-pill-button {
+	border: 1px solid black;
+	border-radius: 8px;
+	cursor: pointer;
+	height: 2rem;
+	width: 10rem;
+	margin: 1rem;
+	font-weight: 700;
+	margin: 1rem auto auto auto !important;
+}
 
-	.mini-pill-button:hover {
-		border: 1px solid black;
-		font-weight: 800;
-	}
+.mini-pill-button:hover {
+	border: 1px solid black;
+	font-weight: 800;
+}
 
-	.modal-header {
-		display: flex;
-		justify-content: space-between;
-		color: black;
-		text-align: left;
-		margin: 0.5rem 0 1rem 0;
-	}
+.modal-header {
+	display: flex;
+	justify-content: space-between;
+	color: black;
+	text-align: left;
+	margin: 0.5rem 0 1rem 0;
+}
 
-	.mini-buttons {
-		display: flex;
-		column-gap: 0.7rem;
-	}
+.mini-buttons {
+	display: flex;
+	column-gap: 0.7rem;
+}
 
-	.mini-button {
-		font-size: 0.7rem;
-		cursor: pointer;
-		color: grey;
-	}
+.mini-button {
+	font-size: 0.7rem;
+	cursor: pointer;
+	color: grey;
+}
 
-	.mini-button:hover {
-		font-size: 0.7rem;
-		cursor: pointer;
-		color: black;
-	}
+.mini-button:hover {
+	font-size: 0.7rem;
+	cursor: pointer;
+	color: black;
+}
 
-	.text-button {
-		cursor: pointer;
-		font-size: 0.8rem;
-		display: inline-block;
-		margin: 0 1rem 0 0.2rem;
-		width: 3.2rem;
-	}
+.text-button {
+	cursor: pointer;
+	font-size: 0.8rem;
+	display: inline-block;
+	margin: 0 1rem 0 0.2rem;
+	width: 3.2rem;
+}
 
-	.text-button:hover {
-		font-weight: 700;
-	}
+.text-button:hover {
+	font-weight: 700;
+}
 
-	.hide {
-		display: none;
-	}
+.hide {
+	display: none;
+}
 
-	.round-border {
-		border: 1px solid grey;
-		border-radius: 7px;
-	}
+.round-border {
+	border: 1px solid grey;
+	border-radius: 7px;
+}
 
-	.provider-option {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		cursor: pointer;
-		padding: 0.5rem;
-		margin: 0.2rem;
-	}
+.provider-option {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	cursor: pointer;
+	padding: 0.5rem;
+	margin: 0.2rem;
+}
 
-	.provider-option:hover {
-		border: 1px solid black;
-		font-weight: 600;
-	}
+.provider-option:hover {
+	border: 1px solid black;
+	font-weight: 600;
+}
 
-	.provider-option > div {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
+.provider-option > div {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
 
-	.wallet-logo {
-		width: 1.5rem;
-		height: 1.5rem;
-	}
+.wallet-logo {
+	width: 1.5rem;
+	height: 1.5rem;
+}
 </style>
