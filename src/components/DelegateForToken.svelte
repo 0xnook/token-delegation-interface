@@ -12,17 +12,41 @@ let queryParamContract: string;
 let queryParamTokenId: number;
 
 let delegatePromise: Promise<string[]>;
-$: if ($connected && $contracts.delegationRegistry && queryParamContract && queryParamTokenId !== undefined) {
-	delegatePromise = $contracts.delegationRegistry.getDelegatesForToken($signerAddress, queryParamContract, queryParamTokenId);
+$: if (
+	$connected &&
+	$contracts.delegationRegistry &&
+	queryParamContract &&
+	queryParamTokenId !== undefined
+) {
+	console.log($signerAddress, queryParamContract, queryParamTokenId);
+	delegatePromise = $contracts.delegationRegistry.getDelegatesForToken(
+		$signerAddress,
+		queryParamContract,
+		queryParamTokenId
+	);
 }
 
 function addNewDelegate() {
-	$contracts.delegationRegistry.delegateForToken(newDelegateAddress, newDelegateContractAddress, newDelegateTokenId, true);
+	$contracts.delegationRegistry.delegateForToken(
+		newDelegateAddress,
+		newDelegateContractAddress,
+		newDelegateTokenId,
+		true
+	);
 }
 
-$: if ($connected && $contracts.delegationRegistry) {
+$: if (
+	$connected &&
+	$contracts.delegationRegistry &&
+	queryParamContract &&
+	queryParamTokenId !== undefined
+) {
 	$contracts.delegationRegistry.on('DelegateForToken', () => {
-		delegatePromise = $contracts.delegationRegistry.getDelegatesForToken($signerAddress, queryParamContract, queryParamTokenId);
+		delegatePromise = $contracts.delegationRegistry.getDelegatesForToken(
+			$signerAddress,
+			queryParamContract,
+			queryParamTokenId
+		);
 	});
 }
 </script>
@@ -52,7 +76,12 @@ $: if ($connected && $contracts.delegationRegistry) {
 	<label for="query-tokenid-input">Query tokenID: </label>
 	<input id="query-tokenid-input" type="number" bind:value={queryInputTokenId} />
 
-	<button on:click={()=>{queryParamContract=queryInputContract;queryParamTokenId=queryInputTokenId}}>Submit</button>
+	<button
+		on:click={() => {
+			queryParamContract = queryInputContract;
+			queryParamTokenId = queryInputTokenId;
+		}}>Submit</button
+	>
 
 	<h5>New delegate</h5>
 	<label for="address-input">Delegate address: </label>
@@ -60,7 +89,6 @@ $: if ($connected && $contracts.delegationRegistry) {
 
 	<label for="contract-input">Contract: </label>
 	<input id="contract-input" type="text" bind:value={newDelegateContractAddress} />
-
 
 	<label for="tokenid-input">TokenID: </label>
 	<input id="tokenid-input" type="text" bind:value={newDelegateTokenId} />

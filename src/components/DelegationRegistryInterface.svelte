@@ -7,9 +7,9 @@ import DelegateForToken from './DelegateForToken.svelte';
 
 {#if $connected && $contracts.delegationRegistry}
 	<div class="container">
-		<DelegateForAll/>
-		<DelegateForContract/>
-		<DelegateForToken/>
+		<DelegateForAll />
+		<DelegateForContract />
+		<DelegateForToken />
 	</div>
 {:else}
 	Please connect wallet

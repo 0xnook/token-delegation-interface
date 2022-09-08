@@ -9,16 +9,26 @@ let queryParamContract: string;
 
 let delegatePromise: Promise<string[]>;
 $: if ($connected && $contracts.delegationRegistry && queryParamContract) {
-	delegatePromise = $contracts.delegationRegistry.getDelegatesForContract($signerAddress, queryParamContract);
+	delegatePromise = $contracts.delegationRegistry.getDelegatesForContract(
+		$signerAddress,
+		queryParamContract
+	);
 }
 
 function addNewDelegate() {
-	$contracts.delegationRegistry.delegateForContract(newDelegateAddress, newDelegateContractAddress, true);
+	$contracts.delegationRegistry.delegateForContract(
+		newDelegateAddress,
+		newDelegateContractAddress,
+		true
+	);
 }
 
-$: if ($connected && $contracts.delegationRegistry) {
+$: if ($connected && $contracts.delegationRegistry && queryParamContract) {
 	$contracts.delegationRegistry.on('DelegateForContract', () => {
-		delegatePromise = $contracts.delegationRegistry.getDelegatesForContract($signerAddress, queryParamContract);
+		delegatePromise = $contracts.delegationRegistry.getDelegatesForContract(
+			$signerAddress,
+			queryParamContract
+		);
 	});
 }
 </script>
@@ -44,7 +54,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 	<label for="address-input">Query contract: </label>
 	<input id="address-input" type="text" bind:value={queryInputContract} />
 
-	<button on:click={()=>queryParamContract=queryInputContract}>Submit</button>
+	<button on:click={() => (queryParamContract = queryInputContract)}>Submit</button>
 
 	<h5>New delegate</h5>
 
@@ -55,7 +65,6 @@ $: if ($connected && $contracts.delegationRegistry) {
 	<input id="contract-input" type="text" bind:value={newDelegateContractAddress} />
 	<button on:click={addNewDelegate}>Set contract delegate</button>
 </div>
-
 
 <style>
 .box {

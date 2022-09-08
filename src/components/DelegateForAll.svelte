@@ -19,6 +19,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 	});
 }
 </script>
+
 <div class="box">
 	<h1>Wallet delegates</h1>
 	{#await delegatePromise}
@@ -33,13 +34,11 @@ $: if ($connected && $contracts.delegationRegistry) {
 		{err.code}
 	{/await}
 
-
 	<h5>New delegate</h5>
 	<label for="address-input">Delegate address: </label>
 	<input id="address-input" type="text" bind:value={newDelegateAddress} />
 	<button on:click={addNewDelegate}>Set wallet delegate</button>
 </div>
-
 
 <style>
 .box {
