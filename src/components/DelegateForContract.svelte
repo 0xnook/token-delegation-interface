@@ -35,10 +35,15 @@ $: if ($connected && $contracts.delegationRegistry && queryParamContract) {
 
 <div class="box">
 	<h1>Contract delegates</h1>
+
+	<h4>Query params</h4>
+	<b>Contract: {queryParamContract ? queryParamContract : 'please set'}</b>
 	{#await delegatePromise}
 		<span>waiting...</span>
 	{:then delegates}
+		{(!queryParamContract) ? "Set query parameter to get started" : ""}
 		{#if delegates && 'length' in delegates}
+			{delegates.length === 0 ? "No delegates for this contract" : ""}
 			{#each delegates as delegate}
 				<li>{delegate}</li>
 			{/each}
@@ -47,9 +52,7 @@ $: if ($connected && $contracts.delegationRegistry && queryParamContract) {
 		{err.code}
 	{/await}
 
-	<h4>Query params</h4>
 
-	<h5>Contract: {queryParamContract ? queryParamContract : 'please set'}</h5>
 
 	<label for="address-input">Query contract: </label>
 	<input id="address-input" type="text" bind:value={queryInputContract} />
@@ -81,5 +84,9 @@ $: if ($connected && $contracts.delegationRegistry && queryParamContract) {
 }
 input {
 	width: 30rem;
+}
+
+h4 {
+	margin: 0;
 }
 </style>

@@ -26,6 +26,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 		<span>waiting...</span>
 	{:then delegates}
 		{#if delegates && 'length' in delegates}
+			{delegates.length === 0 ? "No wallet delegates" : ""}
 			{#each delegates as delegate}
 				<li>{delegate}</li>
 			{/each}

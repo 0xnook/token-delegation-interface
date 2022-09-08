@@ -53,10 +53,21 @@ $: if (
 
 <div class="box">
 	<h1>Token delegates</h1>
+
+	<h4>Query params</h4>
+
+	<b>Contract: {queryParamContract ? queryParamContract : 'please set'}</b>
+	<b>Token id: {queryParamTokenId !== undefined ? queryParamTokenId : 'please set'}</b>
+
 	{#await delegatePromise}
 		<span>waiting...</span>
 	{:then delegates}
+		{(!queryParamContract || queryParamTokenId === undefined) ? "Set query parameters to get started" : ""}
 		{#if delegates && 'length' in delegates}
+			{#if !queryParamContract}
+				Set query params
+			{/if}
+			{delegates.length === 0 ? "No delegates for this token" : ""}
 			{#each delegates as delegate}
 				<li>{delegate}</li>
 			{/each}
@@ -65,10 +76,7 @@ $: if (
 		{err.code}
 	{/await}
 
-	<h4>Query params</h4>
 
-	<h5>Contract: {queryParamContract ? queryParamContract : 'please set'}</h5>
-	<h5>Token id: {queryParamTokenId !== undefined ? queryParamTokenId : 'please set'}</h5>
 
 	<label for="query-contract-input">Query contract: </label>
 	<input id="query-contract-input" type="text" bind:value={queryInputContract} />
@@ -110,5 +118,9 @@ $: if (
 }
 input {
 	width: 30rem;
+}
+
+b {
+	margin: 0.2rem;
 }
 </style>
