@@ -6,6 +6,8 @@ import { handleConnect, attachContracts } from '../utils';
 import { providerType, connectedToSupportedChain } from '../store';
 import DelegationRegistryInterface from '../components/DelegationRegistryInterface.svelte';
 
+import ContractLoader from '../components/delegationRegistry/ContractLoader.svelte';
+
 // reattach contracts on chainId change
 $: $chainId && $connectedToSupportedChain && attachContracts();
 
@@ -20,4 +22,5 @@ onMount(async () => {
 });
 </script>
 
-<DelegationRegistryInterface />
+<ContractLoader />
+	<!--<DelegationRegistryInterface /> -->

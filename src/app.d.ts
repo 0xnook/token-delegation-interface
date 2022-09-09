@@ -6,3 +6,10 @@ declare namespace App {
 	// interface PageData {}
 	// interface Platform {}
 }
+
+interface NavOption {
+	key: string;
+	value: string;
+}
+
+type DelegateKind = 'wallet' | 'contract' | 'token';
