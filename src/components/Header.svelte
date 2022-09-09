@@ -5,7 +5,7 @@ import { toShortAddress } from '../utils';
 </script>
 
 <header class="header">
-	<h1>Logo</h1>
+	<h1>Token Delegation</h1>
 	<button
 		on:click={() => {
 			$accountModalHidden = false;
