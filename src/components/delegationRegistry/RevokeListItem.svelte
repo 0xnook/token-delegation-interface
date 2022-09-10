@@ -35,8 +35,7 @@ function revoke() {
 	text-align: center;
 	border: 4px dotted black;
 	width: 14rem;
-	height: 12rem;
-	/* margin: auto; */
+	height: 11rem;
 }
 
 .box > b,

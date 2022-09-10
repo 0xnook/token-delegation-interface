@@ -24,7 +24,7 @@ const delegateNavOptions = [
 	}
 ];
 
-const revokeNavOptions = [...delegateNavOptions, { key: 'self', value: 'Self' }];
+const revokeNavOptions = [...delegateNavOptions, { key: 'other', value: 'Other' }];
 </script>
 
 {#if $connected && $contracts.delegationRegistry}
