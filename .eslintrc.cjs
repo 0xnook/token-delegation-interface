@@ -18,6 +18,8 @@ module.exports = {
 		node: true
 	},
 	rules: {
+		// ignore params starting with _
+		'no-unused-vars': [2, { args: 'all', argsIgnorePattern: '^_' }],
 		'@typescript-eslint/ban-ts-comment': [
 			'error',
 			{
