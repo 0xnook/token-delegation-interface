@@ -15,7 +15,6 @@ $: if ($connected && $contracts.delegationRegistry) {
 	if (revokeKind === 'wallet') {
 		delegateWalletPromise = $contracts.delegationRegistry.getDelegatesForAll($signerAddress);
 	} else if (revokeKind === 'contract') {
-		console.log('getting contract delegates');
 		delegateContractPromise =
 			$contracts.delegationRegistry.getContractLevelDelegations($signerAddress);
 	} else if (revokeKind === 'token') {
@@ -23,34 +22,27 @@ $: if ($connected && $contracts.delegationRegistry) {
 	}
 
 	// fire up event listeners for ui update
-	$contracts.delegationRegistry.on('DelegateForAll', () => {
-		delegateWalletPromise = $contracts.delegationRegistry.getDelegatesForAll($signerAddress);
-	});
-}
-
-// easier to iterate format for delegateContractPromise and delegateTokenPromise
-function normalizeData(delegates) {
-	let result = [];
-	for (let i = 0; i < delegates[0].length; i++) {
-		if (delegates.length === 2) {
-			result.push({
-				delegate: delegates.delegates[i],
-				contract: delegates.contracts[i]
-			});
-		} else if (delegates.length === 3) {
-			result.push({
-				delegate: delegates.delegates[i],
-				contract: delegates.contracts[i],
-				tokenId: delegates.tokenIds[i]
-			});
+	$contracts.delegationRegistry.on('DelegateForAll', (vault: string) => {
+		if (vault === $signerAddress) {
+			delegateWalletPromise = $contracts.delegationRegistry.getDelegatesForAll($signerAddress);
 		}
-	}
-	return result;
+	});
+	$contracts.delegationRegistry.on('DelegateForContract', (vault: string) => {
+		if (vault === $signerAddress) {
+			delegateContractPromise =
+				$contracts.delegationRegistry.getContractLevelDelegations($signerAddress);
+		}
+	});
+	$contracts.delegationRegistry.on('DelegateForToken', (vault: string) => {
+		if (vault === $signerAddress) {
+			delegateTokenPromise = $contracts.delegationRegistry.getTokenLevelDelegations($signerAddress);
+		}
+	});
 }
 </script>
 
 <div class="revoke-item">
-	{#if revokeKind === 'wallet'}
+	! {#if revokeKind === 'wallet'}
 		{#await delegateWalletPromise}
 			<span>waiting...</span>
 		{:then delegates}
@@ -72,10 +64,10 @@ function normalizeData(delegates) {
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No contract delegates' : ''}
 				<div class="container">
-					{#each normalizeData(delegates) as delegate}
+					{#each delegates as delegate}
 						<RevokeListItem
 							delegateAddress={delegate.delegate}
-							contractAddress={delegate.contract}
+							contractAddress={delegate.contract_}
 						/>
 					{/each}
 				</div>
@@ -90,10 +82,10 @@ function normalizeData(delegates) {
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No token delegates' : ''}
 				<div class="container">
-					{#each normalizeData(delegates) as delegate}
+					{#each delegates as delegate}
 						<RevokeListItem
 							delegateAddress={delegate.delegate}
-							contractAddress={delegate.contract}
+							contractAddress={delegate.contract_}
 							tokenId={delegate.tokenId}
 						/>
 					{/each}
