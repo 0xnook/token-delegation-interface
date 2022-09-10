@@ -4,32 +4,47 @@ import Card from './Card.svelte';
 import Delegate from './Delegate.svelte';
 import Revoke from './Revoke.svelte';
 
-import type { DelegateKind } from '../../app.d.ts';
+import type { DelegateKind, RevokeKind } from '../../app.d.ts';
 
 let selectedDelegateTab: DelegateKind;
-let selectedRevokeTab: DelegateKind;
+let selectedRevokeTab: RevokeKind = 'self';
+
+const delegateNavOptions = [
+	{
+		key: 'wallet',
+		value: 'Wallet'
+	},
+	{
+		key: 'contract',
+		value: 'Contract'
+	},
+	{
+		key: 'token',
+		value: 'Token'
+	}
+];
+
+const revokeNavOptions = [...delegateNavOptions, { key: 'self', value: 'Self' }];
 </script>
 
 {#if $connected && $contracts.delegationRegistry}
 	<div class="container">
-		<Card shadow="left" header="DÊLEGATE" bind:selectedTab={selectedDelegateTab} >
-			{#if selectedDelegateTab === 'wallet'}
-				<Delegate delegateKind="wallet"/>
-			{:else if selectedDelegateTab === 'contract'}
-				<Delegate delegateKind="contract"/>
-			{:else}
-				<Delegate delegateKind="token"/>
-			{/if}
+		<Card
+			shadow="left"
+			header="DÊLEGATE"
+			navOptions={delegateNavOptions}
+			bind:selectedTab={selectedDelegateTab}
+		>
+			<Delegate delegateKind={selectedDelegateTab} />
 		</Card>
 
-		<Card shadow="right" header="REVƠKE" bind:selectedTab={selectedRevokeTab}>
-			{#if selectedRevokeTab === 'wallet'}
-				<Revoke delegateKind="wallet"/>
-			{:else if selectedRevokeTab === 'contract'}
-				<Revoke delegateKind="contract"/>
-			{:else}
-				<Revoke delegateKind="token"/>
-			{/if}
+		<Card
+			shadow="right"
+			header="REVƠKE"
+			bind:selectedTab={selectedRevokeTab}
+			navOptions={revokeNavOptions}
+		>
+			<Revoke revokeKind={selectedRevokeTab} />
 		</Card>
 	</div>
 {:else}
@@ -44,4 +59,3 @@ let selectedRevokeTab: DelegateKind;
 	justify-content: center;
 }
 </style>
-

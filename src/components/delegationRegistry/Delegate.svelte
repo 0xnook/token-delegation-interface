@@ -7,15 +7,12 @@ import type { DelegateKind } from '../../app.d.ts';
 export let delegateKind: DelegateKind;
 
 let newDelegateAddress;
-let	newDelegateContractAddress;
-let	newDelegateTokenId;
+let newDelegateContractAddress;
+let newDelegateTokenId;
 
 function addNewDelegate() {
 	if (delegateKind === 'wallet') {
-		$contracts.delegationRegistry.delegateForAll(
-			newDelegateAddress,
-			true
-		);
+		$contracts.delegationRegistry.delegateForAll(newDelegateAddress, true);
 	} else if (delegateKind === 'contract') {
 		$contracts.delegationRegistry.delegateForContract(
 			newDelegateAddress,
@@ -31,23 +28,35 @@ function addNewDelegate() {
 		);
 	}
 }
-
 </script>
 
 <div class="container">
 	<div class="inputs">
-		<InputFloatingLabel bind:value={newDelegateAddress} label="Delegate address" placeholder="nook.eth"/>
+		<InputFloatingLabel
+			bind:value={newDelegateAddress}
+			label="Delegate address"
+			placeholder="nook.eth"
+		/>
 
 		{#if delegateKind === 'contract' || delegateKind === 'token'}
-			<InputFloatingLabel bind:value={newDelegateContractAddress} label="Contract address" placeholder="0x50c57894C3..."/>
+			<InputFloatingLabel
+				bind:value={newDelegateContractAddress}
+				label="Contract address"
+				placeholder="0x50c57894C3..."
+			/>
 		{/if}
 
 		{#if delegateKind === 'token'}
-			<InputFloatingLabel bind:value={newDelegateTokenId} label="TokenID" inputType="number" placeholder="0"/>
+			<InputFloatingLabel
+				bind:value={newDelegateTokenId}
+				label="TokenID"
+				inputType="number"
+				placeholder="0"
+			/>
 		{/if}
 	</div>
 
-	<button on:click={addNewDelegate}>Create new delegate for token</button>
+	<button on:click={addNewDelegate}>Create new delegate</button>
 </div>
 
 <style>
@@ -56,12 +65,12 @@ function addNewDelegate() {
 	margin: 1rem auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	/* justify-content: space-around; */
 	/* min-height: 40rem; */
 }
 
 .inputs {
-	height: 17rem
+	height: 17rem;
 }
 
 button {

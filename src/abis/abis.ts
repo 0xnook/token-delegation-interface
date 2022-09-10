@@ -12,6 +12,8 @@ export const IDelegationRegistryABI = [
 	'function delegateForToken(address delegate, address contract_, uint256 tokenId, bool value)',
 	'function getDelegatesForAll(address vault) view returns (address[])',
 	'function getDelegatesForContract(address vault, address contract_) view returns (address[])',
+	'function getContractLevelDelegations(address vault) view returns (address[] memory contracts, address[] memory delegates)',
+	'function getTokenLevelDelegations(address vault) view returns (address[] memory contracts, uint256[] memory tokenIds, address[] memory delegates)',
 	'function getDelegatesForToken(address vault, address contract_, uint256 tokenId) view returns (address[])',
 	'function getDelegationsByDelegate(address delegate) view returns (tuple(uint8 type_, address vault, address contract_, uint256 tokenId)[])',
 	'function revokeAllDelegates()',

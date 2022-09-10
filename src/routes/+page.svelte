@@ -23,4 +23,4 @@ onMount(async () => {
 </script>
 
 <ContractLoader />
-	<!--<DelegationRegistryInterface /> -->
+<!--<DelegationRegistryInterface /> -->

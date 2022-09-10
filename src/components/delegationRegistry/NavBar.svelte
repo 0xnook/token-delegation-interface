@@ -1,15 +1,16 @@
 <script lang="ts">
-import type {NavOption} from '../../app.d.ts';
+import type { NavOption } from '../../app.d.ts';
 
 export let options: NavOption;
-
 export let selected = options[0].key;
 </script>
 
 <nav>
 	<ul>
 		{#each options as option}
-			<li class:selected={selected===option.key} on:click={()=>selected=option.key}>{option.value}</li>
+			<li class:selected={selected === option.key} on:click={() => (selected = option.key)}>
+				{option.value}
+			</li>
 		{/each}
 	</ul>
 </nav>
@@ -21,24 +22,22 @@ ul {
 }
 
 li {
- font-size: 2rem;
- list-style-type: none;
- /* margin: 0.3rem; */
- margin-left: 3rem;
- color: grey;
- cursor: pointer;
+	font-size: 2rem;
+	list-style-type: none;
+	/* margin: 0.3rem; */
+	margin-left: 3rem;
+	color: grey;
+	cursor: pointer;
 }
 
-
 li:hover {
- color: black;
+	color: black;
 }
 
 .selected {
 	font-weight: 700;
 	color: black;
- 	list-style-type: '⋄';
+	list-style-type: '⋄';
 	text-decoration: underline;
 }
-
 </style>

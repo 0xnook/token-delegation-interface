@@ -13,3 +13,5 @@ interface NavOption {
 }
 
 type DelegateKind = 'wallet' | 'contract' | 'token';
+
+type RevokeKind = DelegateKind | 'self';
