@@ -1,5 +1,5 @@
 <script lang="ts">
-import { contracts } from 'svelte-ethers-store';
+import { contracts, chainId } from 'svelte-ethers-store';
 import { utils } from 'ethers';
 import { toShortAddress } from '../../utils';
 
@@ -7,8 +7,10 @@ export let delegateAddress;
 export let contractAddress = undefined;
 export let tokenId = undefined;
 
+$: contractKey = 'delegationRegistry' + $chainId;
+
 function revoke() {
-	$contracts.delegationRegistry.revokeDelegate(delegateAddress);
+	$contracts[contractKey].revokeDelegate(delegateAddress);
 }
 </script>
 
@@ -61,9 +63,7 @@ button {
 	margin-top: 0.2rem;
 }
 
-
 @media (max-width: 750px) {
-
 	.box {
 		width: 11rem;
 		cursor: pointer;

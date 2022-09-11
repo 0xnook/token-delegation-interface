@@ -4,24 +4,26 @@ import RevokeListItem from './RevokeItem.svelte';
 import ArrowLeft from '../../../static/icons/arrow-left.svg';
 import ArrowRight from '../../../static/icons/arrow-right.svg';
 
-
 export let delegates;
 let page = 0;
 
 $: itemCount = delegates?.length ? delegates.length : 0;
-$: pageCount = itemCount > 0 ? Math.ceil(itemCount/4)-1 : 0; 
-$: firstPageItem = 4*(page)
-
+$: pageCount = itemCount > 0 ? Math.ceil(itemCount / 4) - 1 : 0;
+$: firstPageItem = 4 * page;
 </script>
 
 <div class="outer-container">
-	<div class="arrow" on:click={()=>page--} class:hidden={page===0}><ArrowLeft/></div>
+	<div class="arrow" on:click={() => page--} class:hidden={page === 0}><ArrowLeft /></div>
 	<div class="inner-container">
-		{#each delegates.slice(firstPageItem, firstPageItem+4) as delegate}
-			<RevokeListItem delegateAddress={delegate?.delegate ? delegate.delegate : delegate} contractAddress={delegate.contract_} tokenId={delegate.tokenId}/>
+		{#each delegates.slice(firstPageItem, firstPageItem + 4) as delegate}
+			<RevokeListItem
+				delegateAddress={delegate?.delegate ? delegate.delegate : delegate}
+				contractAddress={delegate.contract_}
+				tokenId={delegate.tokenId}
+			/>
 		{/each}
 	</div>
-	<div class="arrow" on:click={()=>page++} class:hidden={pageCount===page}><ArrowRight/></div>
+	<div class="arrow" on:click={() => page++} class:hidden={pageCount === page}><ArrowRight /></div>
 </div>
 
 <style>
@@ -54,15 +56,16 @@ $: firstPageItem = 4*(page)
 
 @media (max-width: 750px) {
 	.outer-container {
-		width: 30rem;
+		width: 95%;
 		font-size: 0.8rem;
 	}
-  .inner-container {
-    width: 25rem;
+	.inner-container {
+		width: 25rem;
 		/* font-size: 0.5rem; */
-  }
+	}
 
-
+	.arrow {
+		width: 1.5rem;
+	}
 }
-
 </style>

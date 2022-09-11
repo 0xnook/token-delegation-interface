@@ -3,12 +3,19 @@ interface ContractAddress {
 }
 
 export const contractAddresses: Record<number | string, ContractAddress> = {
+	// eth main chain
+	1: {
+		delegationRegistry: '0x00000000b1BBFe1BF5C5934c4bb9c30FEF15E57A'
+	},
+	'0x1': {
+		delegationRegistry: '0x00000000b1BBFe1BF5C5934c4bb9c30FEF15E57A'
+	},
 	// goerli
 	5: {
-		delegationRegistry: '0x000000009f86cc63056f5b119e113cf68ff52d57'
+		delegationRegistry: '0x00000000b1BBFe1BF5C5934c4bb9c30FEF15E57A'
 	},
 	'0x5': {
-		delegationRegistry: '0x000000009f86cc63056f5b119e113cf68ff52d57'
+		delegationRegistry: '0x00000000b1BBFe1BF5C5934c4bb9c30FEF15E57A'
 	},
 	// local node
 	1337: {

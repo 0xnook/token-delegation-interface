@@ -1,6 +1,7 @@
 <script lang="ts">
-import { contracts, connected, signerAddress } from 'svelte-ethers-store';
+import { contracts, connected, signerAddress, chainId } from 'svelte-ethers-store';
 
+import { connectedToSupportedChain } from '../../store';
 import HammerLoader from '../HammerLoader.svelte';
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
 import RevokeItemPaginator from './RevokeItemPaginator.svelte';
@@ -15,46 +16,45 @@ export let revokeKind: RevokeKind;
 
 let revokeVault: string;
 
-$: if ($connected && $contracts.delegationRegistry) {
+$: contractKey = 'delegationRegistry' + $chainId;
+
+$: if ($connectedToSupportedChain && $contracts[contractKey]) {
 	// fetch initial data
 	if (revokeKind === 'wallet') {
-		delegateWalletPromise = $contracts.delegationRegistry.getDelegatesForAll($signerAddress);
+		delegateWalletPromise = $contracts[contractKey].getDelegatesForAll($signerAddress);
 	} else if (revokeKind === 'contract') {
-		delegateContractPromise =
-			$contracts.delegationRegistry.getContractLevelDelegations($signerAddress);
+		delegateContractPromise = $contracts[contractKey].getContractLevelDelegations($signerAddress);
 	} else if (revokeKind === 'token') {
-		delegateTokenPromise = $contracts.delegationRegistry.getTokenLevelDelegations($signerAddress);
+		delegateTokenPromise = $contracts[contractKey].getTokenLevelDelegations($signerAddress);
 	}
 
 	// fire up event listeners for ui update
-	$contracts.delegationRegistry.on('DelegateForAll', (vault: string) => {
+	$contracts[contractKey].on('DelegateForAll', (vault: string) => {
 		if (vault === $signerAddress) {
-			delegateWalletPromise = $contracts.delegationRegistry.getDelegatesForAll($signerAddress);
+			delegateWalletPromise = $contracts[contractKey].getDelegatesForAll($signerAddress);
 		}
 	});
-	$contracts.delegationRegistry.on('DelegateForContract', (vault: string) => {
+	$contracts[contractKey].on('DelegateForContract', (vault: string) => {
 		if (vault === $signerAddress) {
-			delegateContractPromise =
-				$contracts.delegationRegistry.getContractLevelDelegations($signerAddress);
+			delegateContractPromise = $contracts[contractKey].getContractLevelDelegations($signerAddress);
 		}
 	});
-	$contracts.delegationRegistry.on('DelegateForToken', (vault: string) => {
+	$contracts[contractKey].on('DelegateForToken', (vault: string) => {
 		if (vault === $signerAddress) {
-			delegateTokenPromise = $contracts.delegationRegistry.getTokenLevelDelegations($signerAddress);
+			delegateTokenPromise = $contracts[contractKey].getTokenLevelDelegations($signerAddress);
 		}
 	});
 }
 </script>
 
-
-<div class="revoke-item">
+<div class="container">
 	{#if revokeKind === 'wallet'}
 		{#await delegateWalletPromise}
 			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No wallet delegates' : ''}
-				<RevokeItemPaginator {delegates}/>
+				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -65,9 +65,12 @@ $: if ($connected && $contracts.delegationRegistry) {
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No contract delegates' : ''}
-				<RevokeItemPaginator {delegates}/>
+				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
+			sdasdsa
+			{$chainId}
+			{$contracts[contractKey].address}
 			Error fetching delegates {err.code}
 		{/await}
 	{:else if revokeKind === 'token'}
@@ -76,7 +79,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No token delegates' : ''}
-				<RevokeItemPaginator {delegates}/>
+				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -90,10 +93,16 @@ $: if ($connected && $contracts.delegationRegistry) {
 					inputType="text"
 					placeholder="nook.eth"
 				/>
-				<button on:click={$contracts.delegationRegistry.revokeSelf(revokeVault)}>Revoke self</button>
+				<button
+					disabled={!$connectedToSupportedChain}
+					on:click={$contracts[contractKey].revokeSelf(revokeVault)}>Revoke self</button
+				>
 			</div>
 
-			<button on:click={$contracts.delegationRegistry.revokeAllDelegates()}>Revoke all delegates</button>
+			<button
+				disabled={!$connectedToSupportedChain}
+				on:click={$contracts[contractKey].revokeAllDelegates()}>Revoke all delegates</button
+			>
 		</div>
 	{/if}
 </div>
@@ -109,7 +118,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 	/* align-items: center; */
 }
 .revoke-self {
-	height:17rem;
+	height: 17rem;
 }
 
 button {
@@ -125,10 +134,30 @@ button {
 	margin: auto;
 }
 
+button:disabled {
+	cursor: not-allowed !important;
+}
+
 .loader {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin: 3rem auto;
+}
+
+@media (max-width: 750px) {
+	.container {
+		width: 100%;
+	}
+	.other-tab {
+		width: 80%;
+	}
+	.revoke-self {
+		width: 100%;
+		margin: auto;
+	}
+	button {
+		width: 100%;
+	}
 }
 </style>

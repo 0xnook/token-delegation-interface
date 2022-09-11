@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "vite dev --host",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "playwright test",
@@ -35,7 +35,11 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@walletconnect/client": "^1.8.0",
+		"@walletconnect/qrcode-modal": "^1.8.0",
+		"@walletconnect/web3-provider": "^1.8.0",
 		"ethers": "^5.7.0",
-		"svelte-ethers-store": "^2.5.8"
+		"svelte-ethers-store": "^2.5.8",
+		"web3": "^1.7.5"
 	}
 }
