@@ -20,7 +20,7 @@ export let navOptions;
 	border: 2px solid;
 	width: 45rem;
 	/* margin: auto; */
-	min-height: 45rem;
+	min-height: 50rem;
 }
 
 .shadow-left {
