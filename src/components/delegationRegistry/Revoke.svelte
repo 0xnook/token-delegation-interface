@@ -2,7 +2,8 @@
 import { contracts, connected, signerAddress } from 'svelte-ethers-store';
 
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
-import RevokeListItem from './RevokeListItem.svelte';
+
+import RevokeItemPaginator from './RevokeItemPaginator.svelte';
 
 import type { RevokeKind } from '../../app.d.ts';
 
@@ -52,11 +53,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No wallet delegates' : ''}
-				<div class="container">
-					{#each delegates as delegate}
-						<RevokeListItem delegateAddress={delegate} />
-					{/each}
-				</div>
+				<RevokeItemPaginator {delegates}/>
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -67,14 +64,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No contract delegates' : ''}
-				<div class="container">
-					{#each delegates as delegate}
-						<RevokeListItem
-							delegateAddress={delegate.delegate}
-							contractAddress={delegate.contract_}
-						/>
-					{/each}
-				</div>
+				<RevokeItemPaginator {delegates}/>
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -85,15 +75,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No token delegates' : ''}
-				<div class="container">
-					{#each delegates as delegate}
-						<RevokeListItem
-							delegateAddress={delegate.delegate}
-							contractAddress={delegate.contract_}
-							tokenId={delegate.tokenId}
-						/>
-					{/each}
-				</div>
+				<RevokeItemPaginator {delegates}/>
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
