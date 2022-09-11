@@ -54,7 +54,7 @@ $: firstPageItem = 4*(page)
 
 @media (max-width: 750px) {
 	.outer-container {
-		width: 30rem;
+		width: 95%;
 		font-size: 0.8rem;
 	}
   .inner-container {
@@ -62,7 +62,9 @@ $: firstPageItem = 4*(page)
 		/* font-size: 0.5rem; */
   }
 
-
+	.arrow {
+		width: 1.5rem;
+	}
 }
 
 </style>

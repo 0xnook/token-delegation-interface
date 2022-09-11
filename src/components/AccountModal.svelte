@@ -100,7 +100,10 @@ onDestroy(() => {
 					</div>
 					<img class="wallet-logo" alt="Metamask logo" src="/metamask.png" />
 				</div>
-				<!--<div on:click={handleWalletConnectProvider} class="round-border provider-option"> <div>
+				<div on:click={() =>
+						handleConnect('walletconnect').then(() => {
+							changing = false;
+						})} class="round-border provider-option"> <div>
 						<span class:hide={$providerType !== 'walletconnect'} class="green">&#8226;</span>
 						WalletConnect
 					</div>

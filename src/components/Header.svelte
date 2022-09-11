@@ -1,16 +1,20 @@
 <script lang="ts">
-import { signerAddress } from 'svelte-ethers-store';
+import { signerAddress, chainData, chainId } from 'svelte-ethers-store';
 import { accountModalHidden } from '../store';
 import { toShortAddress } from '../utils';
 </script>
 
 <header class="header">
 	<h1>Token Delegation</h1>
-	<button
-		on:click={() => {
-			$accountModalHidden = false;
-		}}>{$signerAddress ? toShortAddress($signerAddress) : 'Conectar'}</button
-	>
+	<div>
+		{$chainData?.name} 
+		&nbsp;
+		<button
+			on:click={() => {
+				$accountModalHidden = false;
+			}}>{$signerAddress ? toShortAddress($signerAddress) : 'Conectar'}</button
+		>
+	</div>
 </header>
 
 <style>

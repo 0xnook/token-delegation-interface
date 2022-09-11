@@ -8,14 +8,14 @@ import { providerType, connectedToSupportedChain } from '../store';
 import ContractLoader from '../components/delegationRegistry/ContractLoader.svelte';
 
 // reattach contracts on chainId change
-$: $connectedToSupportedChain && attachContracts();
+$: $connectedToSupportedChain;
 
 onMount(async () => {
 	if (!$connected) {
 		if ($providerType === 'metamask') {
 			handleConnect('metamask');
 		} else if ($providerType === 'walletconnect') {
-			/* handleWalletConnectProvider(); */
+			handleConnect('walletconnect');
 		}
 	}
 });

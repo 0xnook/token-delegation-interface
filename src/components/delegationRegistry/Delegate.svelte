@@ -1,5 +1,7 @@
 <script lang="ts">
-import { contracts } from 'svelte-ethers-store';
+import { contracts, chainId } from 'svelte-ethers-store';
+
+import { connectedToSupportedChain } from '../../store';
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
 
 import type { DelegateKind } from '../../app.d.ts';
@@ -10,17 +12,20 @@ let newDelegateAddress;
 let newDelegateContractAddress;
 let newDelegateTokenId;
 
+$: contractKey = 'delegationRegistry' + $chainId;
+
+
 function addNewDelegate() {
 	if (delegateKind === 'wallet') {
-		$contracts.delegationRegistry.delegateForAll(newDelegateAddress, true);
+		$contracts[contractKey].delegateForAll(newDelegateAddress, true);
 	} else if (delegateKind === 'contract') {
-		$contracts.delegationRegistry.delegateForContract(
+		$contracts[contractKey].delegateForContract(
 			newDelegateAddress,
 			newDelegateContractAddress,
 			true
 		);
 	} else if (delegateKind === 'token') {
-		$contracts.delegationRegistry.delegateForToken(
+		$contracts[contractKey].delegateForToken(
 			newDelegateAddress,
 			newDelegateContractAddress,
 			newDelegateTokenId,
@@ -56,7 +61,7 @@ function addNewDelegate() {
 		{/if}
 	</div>
 
-	<button on:click={addNewDelegate}>Create new delegate</button>
+	<button disabled={!$connectedToSupportedChain} on:click={addNewDelegate}>Create new delegate</button>
 </div>
 
 <style>
@@ -65,8 +70,6 @@ function addNewDelegate() {
 	margin: 1rem auto;
 	display: flex;
 	flex-direction: column;
-	/* justify-content: space-around; */
-	/* min-height: 40rem; */
 }
 
 .inputs {
@@ -84,5 +87,22 @@ button {
 	cursor: pointer;
 	outline: inherit;
 	margin: auto;
+}
+
+button:disabled {
+	cursor: not-allowed !important;
+}
+
+@media (max-width: 750px) {
+	.container {
+		width: 100%;
+	}
+	.inputs {
+		margin: auto;
+		width: 80%;
+	}
+	button {
+		width: 80%;
+	}
 }
 </style>
