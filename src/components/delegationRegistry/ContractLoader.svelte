@@ -54,6 +54,7 @@ const revokeNavOptions = [...delegateNavOptions, { key: 'other', value: 'Other' 
 <style>
 .container {
 	display: flex;
+	flex-wrap: wrap;
 	margin: auto;
 	gap: 3rem;
 	justify-content: center;

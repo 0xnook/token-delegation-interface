@@ -19,7 +19,6 @@ export let navOptions;
 .card {
 	border: 2px solid;
 	width: 45rem;
-	/* margin: auto; */
 	min-height: 50rem;
 }
 

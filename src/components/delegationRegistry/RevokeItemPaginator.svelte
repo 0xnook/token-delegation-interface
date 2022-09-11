@@ -51,4 +51,18 @@ $: firstPageItem = 4*(page)
 .hidden {
 	visibility: hidden;
 }
+
+@media (max-width: 750px) {
+	.outer-container {
+		width: 30rem;
+		font-size: 0.8rem;
+	}
+  .inner-container {
+    width: 25rem;
+		/* font-size: 0.5rem; */
+  }
+
+
+}
+
 </style>

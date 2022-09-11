@@ -21,11 +21,14 @@ ul {
 	margin-left: 1rem;
 }
 
+li:not(:first-child) {
+	margin-left: 2rem;
+}
 li {
-	font-size: 2rem;
+	font-size: 1.2rem;
 	list-style-type: none;
 	/* margin: 0.3rem; */
-	margin-left: 3rem;
+
 	color: grey;
 	cursor: pointer;
 }
