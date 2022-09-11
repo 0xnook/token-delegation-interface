@@ -23,8 +23,7 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 	if (revokeKind === 'wallet') {
 		delegateWalletPromise = $contracts[contractKey].getDelegatesForAll($signerAddress);
 	} else if (revokeKind === 'contract') {
-		delegateContractPromise =
-			$contracts[contractKey].getContractLevelDelegations($signerAddress);
+		delegateContractPromise = $contracts[contractKey].getContractLevelDelegations($signerAddress);
 	} else if (revokeKind === 'token') {
 		delegateTokenPromise = $contracts[contractKey].getTokenLevelDelegations($signerAddress);
 	}
@@ -37,8 +36,7 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 	});
 	$contracts[contractKey].on('DelegateForContract', (vault: string) => {
 		if (vault === $signerAddress) {
-			delegateContractPromise =
-				$contracts[contractKey].getContractLevelDelegations($signerAddress);
+			delegateContractPromise = $contracts[contractKey].getContractLevelDelegations($signerAddress);
 		}
 	});
 	$contracts[contractKey].on('DelegateForToken', (vault: string) => {
@@ -56,7 +54,7 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No wallet delegates' : ''}
-				<RevokeItemPaginator {delegates}/>
+				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -67,10 +65,9 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No contract delegates' : ''}
-				<RevokeItemPaginator {delegates}/>
+				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
-
 			sdasdsa
 			{$chainId}
 			{$contracts[contractKey].address}
@@ -82,7 +79,7 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No token delegates' : ''}
-				<RevokeItemPaginator {delegates}/>
+				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -96,10 +93,16 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 					inputType="text"
 					placeholder="nook.eth"
 				/>
-				<button disabled='{!$connectedToSupportedChain}' on:click={$contracts[contractKey].revokeSelf(revokeVault)}>Revoke self</button>
+				<button
+					disabled={!$connectedToSupportedChain}
+					on:click={$contracts[contractKey].revokeSelf(revokeVault)}>Revoke self</button
+				>
 			</div>
 
-			<button disabled={!$connectedToSupportedChain} on:click={$contracts[contractKey].revokeAllDelegates()}>Revoke all delegates</button>
+			<button
+				disabled={!$connectedToSupportedChain}
+				on:click={$contracts[contractKey].revokeAllDelegates()}>Revoke all delegates</button
+			>
 		</div>
 	{/if}
 </div>
@@ -115,7 +118,7 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 	/* align-items: center; */
 }
 .revoke-self {
-	height:17rem;
+	height: 17rem;
 }
 
 button {
@@ -142,7 +145,6 @@ button:disabled {
 	margin: 3rem auto;
 }
 
-
 @media (max-width: 750px) {
 	.container {
 		width: 100%;
@@ -151,7 +153,6 @@ button:disabled {
 		width: 80%;
 	}
 	.revoke-self {
-
 		width: 100%;
 		margin: auto;
 	}

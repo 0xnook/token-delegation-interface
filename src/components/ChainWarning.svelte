@@ -1,21 +1,19 @@
 <script lang="ts">
+import { connected } from 'svelte-ethers-store';
 import { connectedToSupportedChain } from '../store';
 </script>
 
-<div class:hidden={$connectedToSupportedChain}>
-	Connected to unsupported chain!
-</div>
+<div class:hidden={!$connected || $connectedToSupportedChain}>Connected to unsupported chain!</div>
 
 <style>
 div {
 	text-align: center;
 	border-bottom: 4px dotted;
 	padding: 1rem 0 1rem 0;
-	background-color: #DCDCDC;
+	background-color: #dcdcdc;
 }
 
 .hidden {
 	display: none;
 }
 </style>
-

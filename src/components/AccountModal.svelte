@@ -34,7 +34,7 @@ function handleOutsideClick() {
 async function handleDisconnect() {
 	defaultEvmStores.disconnect();
 	$providerType = null;
-	localStorage.removeItem('providerType');
+	localStorage.removeItem('providertype');
 	localStorage.removeItem('walletconnect');
 	hide = true;
 }
@@ -100,16 +100,19 @@ onDestroy(() => {
 					</div>
 					<img class="wallet-logo" alt="Metamask logo" src="/metamask.png" />
 				</div>
-				<div on:click={() =>
+				<div
+					on:click={() =>
 						handleConnect('walletconnect').then(() => {
 							changing = false;
-						})} class="round-border provider-option"> <div>
+						})}
+					class="round-border provider-option"
+				>
+					<div>
 						<span class:hide={$providerType !== 'walletconnect'} class="green">&#8226;</span>
 						WalletConnect
 					</div>
-					<img class="wallet-logo" alt="WalletConnect logo" src="/static/wallets/walletconnect.svg"/>
+					<img class="wallet-logo" alt="WalletConnect logo" src="/walletconnect.svg" />
 				</div>
-				-->
 			</div>
 		{/if}
 		<button class="mini-pill-button" on:click={() => (hide = true)}>Close</button>

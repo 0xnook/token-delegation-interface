@@ -7,7 +7,7 @@ export let delegateAddress;
 export let contractAddress = undefined;
 export let tokenId = undefined;
 
-$: contractKey = 'delegationRegistry' + $chainId
+$: contractKey = 'delegationRegistry' + $chainId;
 
 function revoke() {
 	$contracts[contractKey].revokeDelegate(delegateAddress);
@@ -62,7 +62,6 @@ button {
 	outline: inherit;
 	margin-top: 0.2rem;
 }
-
 
 @media (max-width: 750px) {
 	.box {

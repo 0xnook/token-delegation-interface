@@ -7,7 +7,7 @@ import { toShortAddress } from '../utils';
 <header class="header">
 	<h1>Token Delegation</h1>
 	<div>
-		{$chainData?.name} 
+		{$chainData?.name ? $chainData.name : ''}
 		&nbsp;
 		<button
 			on:click={() => {
@@ -26,8 +26,6 @@ import { toShortAddress } from '../utils';
 	margin: 1rem;
 }
 
-
-
 button {
 	align-self: center;
 	border: 2px dotted black;
@@ -37,5 +35,4 @@ button {
 	outline: inherit;
 	margin-top: 0.2rem;
 }
-
 </style>

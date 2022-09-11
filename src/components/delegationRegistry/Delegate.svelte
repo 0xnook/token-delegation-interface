@@ -14,7 +14,6 @@ let newDelegateTokenId;
 
 $: contractKey = 'delegationRegistry' + $chainId;
 
-
 function addNewDelegate() {
 	if (delegateKind === 'wallet') {
 		$contracts[contractKey].delegateForAll(newDelegateAddress, true);
@@ -61,7 +60,9 @@ function addNewDelegate() {
 		{/if}
 	</div>
 
-	<button disabled={!$connectedToSupportedChain} on:click={addNewDelegate}>Create new delegate</button>
+	<button disabled={!$connectedToSupportedChain} on:click={addNewDelegate}
+		>Create new delegate</button
+	>
 </div>
 
 <style>

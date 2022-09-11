@@ -52,24 +52,23 @@ export async function attachContracts() {
 	// TODO: open race condition bug when reatacching contracts on chainId change in svelte-ethers-store
 	// meanwhile load contracts with different keys
 	for (const chain in contractAddresses) {
-		const contractKey = 'delegationRegistry' + chain
+		const contractKey = 'delegationRegistry' + chain;
 		await defaultEvmStores.attachContract(
 			contractKey,
 			contractAddresses[chain].delegationRegistry,
 			IDelegationRegistryABI
 		);
 	}
-
 }
 
 export async function handleWalletConnectProvider() {
 	//  Enable session (triggers QR Code modal)
 	const wcProvider = new WalletConnectProvider({
 		rpc: {
-			4: 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-			42: 'https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'
+			1: 'https://mainnet.infura.io/v3/8583f89ad273489493f8ede94329777a',
+			5: 'https://rinkeby.infura.io/v3/8583f89ad273489493f8ede94329777a'
 			// ...
-		},
+		}
 	});
 	//  Enable session (triggers QR Code modal)
 	await wcProvider.enable();
@@ -77,4 +76,6 @@ export async function handleWalletConnectProvider() {
 	//  Wrap with Web3Provider from ethers.js
 	const web3Provider = new providers.Web3Provider(wcProvider);
 	await defaultEvmStores.setProvider(web3Provider.provider as Provider);
+
+	localStorage.setItem('providertype', 'walletconnect');
 }

@@ -1,11 +1,11 @@
 <script lang="ts">
 import { onMount } from 'svelte';
-import { connected, chainId } from 'svelte-ethers-store';
+import { connected } from 'svelte-ethers-store';
 
-import { handleConnect, attachContracts } from '../utils';
+import { handleConnect } from '../utils';
 import { providerType, connectedToSupportedChain } from '../store';
 
-import ContractLoader from '../components/delegationRegistry/ContractLoader.svelte';
+import Main from '../components/delegationRegistry/Main.svelte';
 
 // reattach contracts on chainId change
 $: $connectedToSupportedChain;
@@ -21,4 +21,4 @@ onMount(async () => {
 });
 </script>
 
-<ContractLoader />
+<Main />
