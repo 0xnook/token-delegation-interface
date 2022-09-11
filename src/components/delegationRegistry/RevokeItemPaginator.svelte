@@ -36,7 +36,7 @@ $: firstPageItem = 4*(page)
 
 .inner-container {
 	display: flex;
-	margin: 1rem auto;
+	margin: 9.5rem auto;
 	flex-wrap: wrap;
 	width: 30rem;
 	gap: 1rem;

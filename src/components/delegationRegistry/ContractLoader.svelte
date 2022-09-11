@@ -6,8 +6,8 @@ import Revoke from './Revoke.svelte';
 
 import type { DelegateKind, RevokeKind } from '../../app.d.ts';
 
-let selectedDelegateTab: DelegateKind;
-let selectedRevokeTab: RevokeKind = 'self';
+let selectedDelegateTab: DelegateKind = 'wallet';
+let selectedRevokeTab: RevokeKind = 'wallet';
 
 const delegateNavOptions = [
 	{

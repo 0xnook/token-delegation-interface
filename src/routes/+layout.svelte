@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
 import { accountModalHidden } from '../store';
 import Header from '../components/Header.svelte';
 import AccountModal from '../components/AccountModal.svelte';
+import ChainWarning from '../components/ChainWarning.svelte';
 </script>
 
+<ChainWarning />
 <Header />
 {#key $accountModalHidden}
 	<AccountModal bind:hide={$accountModalHidden} />
@@ -24,5 +26,7 @@ import AccountModal from '../components/AccountModal.svelte';
 
 :global(body) {
 	font-family: 'Noto Sans', sans-serif;
+	padding: 0;
+	margin: 0;
 }
 </style>

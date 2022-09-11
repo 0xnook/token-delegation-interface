@@ -1,8 +1,8 @@
 <script lang="ts">
 import { contracts, connected, signerAddress } from 'svelte-ethers-store';
 
+import HammerLoader from '../HammerLoader.svelte';
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
-
 import RevokeItemPaginator from './RevokeItemPaginator.svelte';
 
 import type { RevokeKind } from '../../app.d.ts';
@@ -46,10 +46,11 @@ $: if ($connected && $contracts.delegationRegistry) {
 }
 </script>
 
+
 <div class="revoke-item">
 	{#if revokeKind === 'wallet'}
 		{#await delegateWalletPromise}
-			<span>waiting...</span>
+			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No wallet delegates' : ''}
@@ -60,7 +61,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 		{/await}
 	{:else if revokeKind === 'contract'}
 		{#await delegateContractPromise}
-			<span>waiting...</span>
+			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No contract delegates' : ''}
@@ -71,7 +72,7 @@ $: if ($connected && $contracts.delegationRegistry) {
 		{/await}
 	{:else if revokeKind === 'token'}
 		{#await delegateTokenPromise}
-			<span>waiting...</span>
+			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
 				{delegates.length === 0 ? 'No token delegates' : ''}
@@ -98,15 +99,6 @@ $: if ($connected && $contracts.delegationRegistry) {
 </div>
 
 <style>
-.container {
-	display: flex;
-	width: 30rem;
-	margin: 1rem auto;
-	flex-wrap: wrap;
-	gap: 1rem;
-	justify-content: flex-start;
-}
-
 .other-tab {
 	display: flex;
 	width: 30rem;
@@ -131,5 +123,12 @@ button {
 	cursor: pointer;
 	outline: inherit;
 	margin: auto;
+}
+
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 3rem auto;
 }
 </style>
