@@ -21,4 +21,17 @@ import { toShortAddress } from '../utils';
 	align-items: center;
 	margin: 1rem;
 }
+
+
+
+button {
+	align-self: center;
+	border: 2px dotted black;
+	padding: 0.2rem 1rem 0.2rem 1rem;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+	margin-top: 0.2rem;
+}
+
 </style>

@@ -14,10 +14,10 @@ function revoke() {
 
 <div class="box">
 	<b>Delegate</b>
-	<div>{toShortAddress(delegateAddress, 8)}</div>
+	<div>{toShortAddress(delegateAddress, 4)}</div>
 	{#if contractAddress !== undefined}
 		<b>Contract</b>
-		<div>{toShortAddress(contractAddress, 8)}</div>
+		<div>{toShortAddress(contractAddress, 4)}</div>
 	{/if}
 	{#if tokenId !== undefined}
 		<b>Token ID</b>
@@ -59,5 +59,14 @@ button {
 	cursor: pointer;
 	outline: inherit;
 	margin-top: 0.2rem;
+}
+
+
+@media (max-width: 750px) {
+
+	.box {
+		width: 11rem;
+		cursor: pointer;
+	}
 }
 </style>
