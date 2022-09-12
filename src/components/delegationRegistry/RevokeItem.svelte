@@ -1,5 +1,5 @@
 <script lang="ts">
-import { contracts, chainId } from 'svelte-ethers-store';
+import { contracts, chainId, chainData } from 'svelte-ethers-store';
 import { utils } from 'ethers';
 import { toShortAddress } from '../../utils';
 
@@ -16,10 +16,23 @@ function revoke() {
 
 <div class="box">
 	<b>Delegate</b>
-	<div>{toShortAddress(delegateAddress, 4)}</div>
+	<div
+		class="address"
+		on:click={() =>
+			window.open($chainData.explorers[0].url + '/address/' + delegateAddress, '_blank')}
+	>
+		{toShortAddress(delegateAddress, 4)}
+	</div>
+
 	{#if contractAddress !== undefined}
 		<b>Contract</b>
-		<div>{toShortAddress(contractAddress, 4)}</div>
+		<div
+			class="address"
+			on:click={() =>
+				window.open($chainData.explorers[0].url + '/address/' + contractAddress, '_blank')}
+		>
+			{toShortAddress(contractAddress, 4)}
+		</div>
 	{/if}
 	{#if tokenId !== undefined}
 		<b>Token ID</b>
@@ -43,6 +56,15 @@ function revoke() {
 .box > b,
 .box > div {
 	margin-left: 1rem;
+}
+
+.address {
+	cursor: pointer;
+}
+
+.address:hover {
+	font-weight: 600;
+	text-decoration: underline;
 }
 
 b {

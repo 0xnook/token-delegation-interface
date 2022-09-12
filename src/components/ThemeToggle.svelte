@@ -26,13 +26,13 @@ const applyTheme = () => {
 	const preferredTheme = prefersDarkThemes() ? 'dark' : 'light';
 	currentTheme = localStorage.getItem('theme') ?? preferredTheme;
 	if (currentTheme === 'dark') {
-		setCssVars('background-color', 'black');
-		setCssVars('outline-color', 'lightgray');
+		setCssVars('background-color', '#333');
+		setCssVars('outline-color', '#fdfdfd');
 		document.body.classList.remove('light');
 		document.body.classList.add('dark');
 	} else {
-		setCssVars('background-color', 'white');
-		setCssVars('outline-color', 'black');
+		setCssVars('background-color', '#fdfdfd');
+		setCssVars('outline-color', '#333');
 		document.body.classList.remove('dark');
 		document.body.classList.add('light');
 	}
