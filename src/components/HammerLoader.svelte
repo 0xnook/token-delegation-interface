@@ -1,5 +1,4 @@
 <!-- adapted from https://codepen.io/kh-mamun/pen/bQMEYM -->
-
 <div>
 	<div class="hammer-loader">
 		<span class="hammer">
@@ -16,12 +15,11 @@
 
 .hammer-loader {
 	display: flex;
-	width: 200px;
 }
 
 .hammer {
 	animation: hammer 1s infinite;
-	background: black;
+	background: var(--outline-color);
 	border-radius: 5px;
 	height: 120px;
 	position: relative;
@@ -30,7 +28,7 @@
 }
 .hammer::before,
 .hammer::after {
-	background: #1a1a1a;
+	background: var(--outline-color);
 	content: '';
 	position: absolute;
 }
@@ -51,7 +49,7 @@
 	width: 10px;
 }
 .hammer span {
-	background: #1a1a1a;
+	background: var(--outline-color);
 	border-radius: 4px;
 	height: 10px;
 	left: -16px;
@@ -60,7 +58,7 @@
 	width: 14px;
 }
 .hammer span::before {
-	background: #1a1a1a;
+	background: var(--outline-color);
 	border-radius: 3px;
 	content: '';
 	height: 14px;

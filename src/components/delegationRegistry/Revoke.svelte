@@ -18,6 +18,12 @@ let revokeVault: string;
 
 $: contractKey = 'delegationRegistry' + $chainId;
 
+$: if (!$connected) {
+	delegateWalletPromise = undefined;
+	delegateContractPromise = undefined;
+	delegateTokenPromise = undefined;
+}
+
 $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 	// fetch initial data
 	if (revokeKind === 'wallet') {
@@ -122,8 +128,8 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 }
 
 button {
-	background: black;
-	color: white;
+	background: var(--outline-color);
+	color: var(--background-color);
 	border: 2px solid grey;
 	padding: 0.2rem 1rem 0.2rem 1rem;
 	width: 30rem;

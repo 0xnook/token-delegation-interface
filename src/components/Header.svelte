@@ -1,5 +1,5 @@
 <script lang="ts">
-import { signerAddress, chainData, chainId } from 'svelte-ethers-store';
+import { signerAddress, chainData } from 'svelte-ethers-store';
 import { accountModalHidden } from '../store';
 import { toShortAddress } from '../utils';
 </script>
@@ -24,11 +24,12 @@ import { toShortAddress } from '../utils';
 	justify-content: space-between;
 	align-items: center;
 	margin: 1rem;
+	color: var(--outline-color);
 }
 
 button {
 	align-self: center;
-	border: 2px dotted black;
+	border: 2px dotted var(--outline-color);
 	padding: 0.2rem 1rem 0.2rem 1rem;
 	font: inherit;
 	cursor: pointer;

@@ -134,11 +134,11 @@ onDestroy(() => {
 
 .modal-content {
 	z-index: 4;
-	border: 2px solid black;
+	border: 2px solid var(--outline-color);
 	border-radius: 7px;
 	max-width: 22rem;
 	margin: auto;
-	background-color: white;
+	background-color: var(--background-color);
 	opacity: 1;
 	padding: 2rem;
 	text-align: center;
@@ -149,18 +149,18 @@ onDestroy(() => {
 	flex-direction: column;
 	text-align: left;
 	padding: 1rem;
-	color: black;
+	color: var(--outline-color);
 }
 
 p {
 	display: inline-block;
 	margin: 0.5rem 0 0.5rem 0;
 	cursor: pointer;
-	color: black;
+	color: var(--outline-color);
 }
 
 .mini-pill-button {
-	border: 1px solid black;
+	border: 1px solid var(--outline-color);
 	border-radius: 8px;
 	cursor: pointer;
 	height: 2rem;
@@ -171,14 +171,14 @@ p {
 }
 
 .mini-pill-button:hover {
-	border: 1px solid black;
+	border: 1px solid var(--outline-color);
 	font-weight: 800;
 }
 
 .modal-header {
 	display: flex;
 	justify-content: space-between;
-	color: black;
+	color: var(--outline-color);
 	text-align: left;
 	margin: 0.5rem 0 1rem 0;
 }
@@ -197,7 +197,7 @@ p {
 .mini-button:hover {
 	font-size: 0.7rem;
 	cursor: pointer;
-	color: black;
+	color: var(--outline-color);
 }
 
 .text-button {
@@ -231,7 +231,7 @@ p {
 }
 
 .provider-option:hover {
-	border: 1px solid black;
+	border: 1px solid var(--outline-color);
 	font-weight: 600;
 }
 

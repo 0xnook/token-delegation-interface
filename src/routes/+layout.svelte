@@ -3,6 +3,7 @@ import { accountModalHidden } from '../store';
 import Header from '../components/Header.svelte';
 import AccountModal from '../components/AccountModal.svelte';
 import ChainWarning from '../components/ChainWarning.svelte';
+import Footer from '../components/Footer.svelte';
 </script>
 
 <ChainWarning />
@@ -13,6 +14,8 @@ import ChainWarning from '../components/ChainWarning.svelte';
 
 <!-- Page contents -->
 <slot />
+
+<Footer />
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap');
@@ -28,5 +31,8 @@ import ChainWarning from '../components/ChainWarning.svelte';
 	font-family: 'Noto Sans', sans-serif;
 	padding: 0;
 	margin: 0;
+	height: 100%;
+	background-color: var(--background-color);
+	color: var(--outline-color);
 }
 </style>
