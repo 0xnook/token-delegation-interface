@@ -54,7 +54,7 @@ $: outerWidth = 0;
 .container {
 	display: flex;
 	flex-wrap: wrap;
-	margin: auto;
+	margin: auto auto 3rem;
 	gap: 3rem;
 	justify-content: center;
 }

@@ -78,8 +78,8 @@ function addNewDelegate() {
 }
 
 button {
-	background: black;
-	color: white;
+	background: var(--outline-color);
+	color: var(--background-color);
 	border: 2px solid grey;
 	padding: 0.2rem 1rem 0.2rem 1rem;
 	width: 30rem;

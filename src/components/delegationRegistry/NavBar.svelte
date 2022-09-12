@@ -28,18 +28,17 @@ li {
 	font-size: 1.2rem;
 	list-style-type: none;
 	/* margin: 0.3rem; */
-
 	color: grey;
 	cursor: pointer;
 }
 
 li:hover {
-	color: black;
+	color: var(--outline-color);
 }
 
 .selected {
 	font-weight: 700;
-	color: black;
+	color: var(--outline-color);
 	list-style-type: '⋄';
 	text-decoration: underline;
 }

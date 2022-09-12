@@ -35,7 +35,7 @@ function revoke() {
 	justify-content: center;
 	align-items: flex-start;
 	text-align: center;
-	border: 4px dotted black;
+	border: 4px dotted var(--outline-color);
 	width: 14rem;
 	height: 11rem;
 }
@@ -51,8 +51,8 @@ b {
 
 button {
 	align-self: center;
-	background: black;
-	color: white;
+	background: var(--outline-color);
+	color: var(--background-color);
 	border: 2px solid grey;
 	padding: 0.2rem 1rem 0.2rem 1rem;
 	width: 8rem;

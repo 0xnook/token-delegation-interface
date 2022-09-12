@@ -26,7 +26,7 @@ export let value;
 	margin-bottom: 1.25rem;
 }
 .did-floating-label {
-	color: black;
+	color: var(--outline-color);
 	font-size: 1rem;
 	font-weight: normal;
 	position: absolute;
@@ -34,7 +34,7 @@ export let value;
 	left: 1rem;
 	top: 0.85rem;
 	padding: 0 0.3rem;
-	background: #fff;
+	background: var(--background-color);
 	transition: 0.2s ease all;
 	-moz-transition: 0.2s ease all;
 	-webkit-transition: 0.2s ease all;
@@ -45,9 +45,10 @@ export let value;
 	width: 100%;
 	height: 3rem;
 	padding: 0 1.25rem;
-	background: #fff;
-	color: black;
-	border: 1px solid black;
+	background: var(--background-color);
+	color: var(--outline-color);
+	caret-color: var(--outline-color);
+	border: 1px solid var(--outline-color);
 	box-sizing: border-box;
 }
 .did-floating-input:focus {

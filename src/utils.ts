@@ -76,6 +76,6 @@ export async function handleWalletConnectProvider() {
 	//  Wrap with Web3Provider from ethers.js
 	const web3Provider = new providers.Web3Provider(wcProvider);
 	await defaultEvmStores.setProvider(web3Provider.provider as Provider);
-
+	providerType.set('walletconnect');
 	localStorage.setItem('providertype', 'walletconnect');
 }
