@@ -59,7 +59,10 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
-				{delegates.length === 0 ? 'No wallet delegates' : ''}
+				<div class="empty-items">
+					<img class="puzzled" alt="puzzled man" src="illustrations/puzzled.png">
+					{delegates.length === 0 ? 'No wallet delegates' : ''}
+				</div>
 				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
@@ -70,7 +73,10 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
-				{delegates.length === 0 ? 'No contract delegates' : ''}
+				<div class="empty-items">
+					<img class="puzzled" alt="puzzled man" src="illustrations/puzzled.png">
+					{delegates.length === 0 ? 'No contract delegates' : ''}
+				</div>
 				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
@@ -84,7 +90,10 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
-				{delegates.length === 0 ? 'No token delegates' : ''}
+				<div class="empty-items">
+					<img class="puzzled" alt="puzzled man" src="illustrations/puzzled.png">
+					{delegates.length === 0 ? 'No token delegates' : ''}
+				</div>
 				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
@@ -149,6 +158,18 @@ button:disabled {
 	justify-content: center;
 	align-items: center;
 	margin: 3rem auto;
+}
+
+.empty-items {
+	display: flex;;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5rem;
+}
+
+.puzzled {
+	width: 15rem;
 }
 
 @media (max-width: 750px) {
