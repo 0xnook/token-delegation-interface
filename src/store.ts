@@ -10,3 +10,4 @@ export const connectedToSupportedChain = derived(
 	[chainId, connected],
 	([$chainId, $connected]) => $chainId in contractAddresses && $connected
 );
+export const currentTheme = writable(browser ? localStorage.getItem('theme') : '');
