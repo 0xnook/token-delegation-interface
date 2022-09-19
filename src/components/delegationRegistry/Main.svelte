@@ -37,7 +37,7 @@ $: outerWidth = 0;
 		navOptions={delegateNavOptions}
 		bind:selectedTab={selectedDelegateTab}
 	>
-		<King width="100%"  slot="illustration"/>
+		<King width="100%" slot="illustration" />
 		<Delegate slot="content" delegateKind={selectedDelegateTab} />
 	</Card>
 
@@ -47,7 +47,7 @@ $: outerWidth = 0;
 		bind:selectedTab={selectedRevokeTab}
 		navOptions={revokeNavOptions}
 	>
-		<Decapitation slot="illustration" height="90%"/> 
+		<Decapitation slot="illustration" height="90%" />
 		<Revoke slot="content" revokeKind={selectedRevokeTab} />
 	</Card>
 </main>

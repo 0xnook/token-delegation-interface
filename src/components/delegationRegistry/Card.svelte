@@ -12,13 +12,13 @@ export let navOptions: NavOption[];
 <section class:shadow-left={shadow === 'left'} class:shadow-right={shadow === 'right'} class="card">
 	<h1 class="header">{header}</h1>
 
-	<div class="graphic" class:dark={$currentTheme === "dark"}>
-		<slot name="illustration"/>
+	<div class="graphic" class:dark={$currentTheme === 'dark'}>
+		<slot name="illustration" />
 	</div>
 
 	<NavBar options={navOptions} bind:selected={selectedTab} />
 
-	<slot name="content"/>
+	<slot name="content" />
 </section>
 
 <style>

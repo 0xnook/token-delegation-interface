@@ -27,7 +27,6 @@ const applyTheme = () => {
 	const preferredTheme = prefersDarkThemes() ? 'dark' : 'light';
 	$currentTheme = localStorage.getItem('theme') ?? preferredTheme;
 	if ($currentTheme === 'dark') {
-		console.log("applying dark");
 		setCssVars('background-color', '#333');
 		setCssVars('outline-color', '#fdfdfd');
 		document.body.classList.remove('light');
