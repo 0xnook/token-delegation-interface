@@ -4,13 +4,11 @@ import { contracts, chainId } from 'svelte-ethers-store';
 import { connectedToSupportedChain } from '../../store';
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
 
-import type { DelegateKind } from '../../app.d.ts';
-
 export let delegateKind: DelegateKind;
 
-let newDelegateAddress;
-let newDelegateContractAddress;
-let newDelegateTokenId;
+let newDelegateAddress: string;
+let newDelegateContractAddress: string;
+let newDelegateTokenId: string;
 
 $: contractKey = 'delegationRegistry' + $chainId;
 

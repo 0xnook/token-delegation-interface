@@ -1,7 +1,5 @@
 <script lang="ts">
-import type { NavOption } from '../../app.d.ts';
-
-export let options: NavOption;
+export let options: NavOption[];
 export let selected = options[0].key;
 </script>
 

@@ -9,8 +9,8 @@ import RevokeItemPaginator from './RevokeItemPaginator.svelte';
 import PuzzledMan from '../../../static/illustrations/puzzled.svg';
 
 let delegateWalletPromise: Promise<string[]> | undefined;
-let delegateTokenPromise: Promise<string[][]> | undefined;
-let delegateContractPromise: Promise<string[][]> | undefined;
+let delegateTokenPromise: Promise<DelegateResponse[]> | undefined;
+let delegateContractPromise: Promise<DelegateResponse[]> | undefined;
 
 export let revokeKind: RevokeKind;
 

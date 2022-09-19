@@ -3,9 +3,9 @@ import { contracts, chainId, chainData } from 'svelte-ethers-store';
 import { utils } from 'ethers';
 import { toShortAddress } from '../../utils';
 
-export let delegateAddress;
-export let contractAddress = undefined;
-export let tokenId = undefined;
+export let delegateAddress: string;
+export let contractAddress: string | undefined = undefined;
+export let tokenId: number | undefined = undefined;
 
 $: contractKey = 'delegationRegistry' + $chainId;
 

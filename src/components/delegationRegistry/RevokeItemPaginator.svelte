@@ -1,10 +1,9 @@
 <script lang="ts">
-import RevokeListItem from './RevokeItem.svelte';
-
+import RevokeItem from './RevokeItem.svelte';
 import ArrowLeft from '../../../static/icons/arrow-left.svg';
 import ArrowRight from '../../../static/icons/arrow-right.svg';
 
-export let delegates;
+export let delegates: DelegateResponse[] | string[];
 let page = 0;
 
 $: itemCount = delegates?.length ? delegates.length : 0;
@@ -16,7 +15,7 @@ $: firstPageItem = 4 * page;
 	<div class="arrow" on:click={() => page--} class:hidden={page === 0}><ArrowLeft /></div>
 	<div class="inner-container">
 		{#each delegates.slice(firstPageItem, firstPageItem + 4) as delegate}
-			<RevokeListItem
+			<RevokeItem
 				delegateAddress={delegate?.delegate ? delegate.delegate : delegate}
 				contractAddress={delegate.contract_}
 				tokenId={delegate.tokenId}
