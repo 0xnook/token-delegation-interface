@@ -7,17 +7,19 @@ import Footer from '../components/Footer.svelte';
 </script>
 
 <ChainWarning />
-<Header />
 {#key $accountModalHidden}
 	<AccountModal bind:hide={$accountModalHidden} />
 {/key}
 
-<!-- Page contents -->
-<slot />
-
-<Footer />
+<div class="wrapper">
+	<Header />
+	<!-- Page contents -->
+	<slot />
+	<Footer />
+</div>
 
 <style>
+/* TODO: bundle fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap');
 @font-face {
 	font-family: 'Noto Sans', sans-serif;
@@ -34,5 +36,13 @@ import Footer from '../components/Footer.svelte';
 	height: 100%;
 	background-color: var(--background-color);
 	color: var(--outline-color);
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;
+	width: 100vw;
 }
 </style>

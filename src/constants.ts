@@ -25,3 +25,10 @@ export const contractAddresses: Record<number | string, ContractAddress> = {
 		delegationRegistry: '0x5fbdb2315678afecb367f032d93f642f64180aa3'
 	}
 };
+
+export const nftExplorerURL: Record<number | string, string> = {
+	1: 'https://www.nftscan.com',
+	'0x1': 'https://www.nftscan.com',
+	137: 'https://polygon.nftscan.com',
+	'0x89': 'https://polygon.nftscan.com'
+};

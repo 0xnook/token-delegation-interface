@@ -58,7 +58,6 @@ onMount(() => {
 </script>
 
 <div>
-	{$currentTheme}
 	<input
 		checked={$currentTheme !== 'dark'}
 		on:click={toggleTheme}

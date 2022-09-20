@@ -20,12 +20,11 @@ ul {
 }
 
 li:not(:first-child) {
-	margin-left: 2rem;
+	margin-left: 1.5rem;
 }
 li {
 	font-size: 1.2rem;
 	list-style-type: none;
-	/* margin: 0.3rem; */
 	color: grey;
 	cursor: pointer;
 }

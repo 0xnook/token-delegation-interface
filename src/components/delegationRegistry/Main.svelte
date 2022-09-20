@@ -47,7 +47,7 @@ $: outerWidth = 0;
 		bind:selectedTab={selectedRevokeTab}
 		navOptions={revokeNavOptions}
 	>
-		<Decapitation slot="illustration" height="90%" />
+		<Decapitation slot="illustration" height="90%" width="100%" />
 		<Revoke slot="content" revokeKind={selectedRevokeTab} />
 	</Card>
 </main>
@@ -59,12 +59,12 @@ $: outerWidth = 0;
 	margin: auto auto 3rem;
 	gap: 3rem;
 	justify-content: center;
+	height: 100%;
 }
 
 @media (max-width: 750px) {
 	.container {
 		width: 95%;
-		cursor: pointer;
 	}
 }
 </style>

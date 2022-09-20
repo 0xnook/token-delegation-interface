@@ -19,18 +19,10 @@ import Github from '../../static/icons/github.svg';
 </footer>
 
 <style>
-:global(main) > footer {
-	position: sticky;
-	top: 100vh;
-	/* margin-bottom: 2rem; */
-}
-
 footer {
-	/* margin-top: 1rem; */
-	height: 0rem;
+	height: 1rem;
 	width: 100%;
 	border-top: 1px solid grey;
-	/* text-align: right; */
 	color: grey;
 }
 
@@ -43,13 +35,13 @@ footer {
 }
 
 .github {
-	margin: 2rem 2rem;
+	margin: 1.5rem 2rem;
 	color: var(--outline-color);
 	cursor: pointer;
 }
 
 .toggle {
-	margin: 1rem 0 0 2rem;
+	margin: 0.5rem 0 0 2rem;
 	cursor: pointer;
 }
 </style>

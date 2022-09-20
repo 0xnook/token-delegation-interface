@@ -25,7 +25,6 @@ export let navOptions: NavOption[];
 .card {
 	border: 2px solid;
 	width: 45rem;
-	/* min-height: 40rem; */
 }
 
 .shadow-left {

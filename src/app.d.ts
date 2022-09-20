@@ -21,3 +21,8 @@ interface DelegateResponse {
 type DelegateKind = 'wallet' | 'contract' | 'token';
 
 type RevokeKind = DelegateKind | 'other';
+
+interface TableCell {
+	value: string | number;
+	onClick?: function;
+}

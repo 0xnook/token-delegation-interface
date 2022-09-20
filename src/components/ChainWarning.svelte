@@ -11,6 +11,7 @@ div {
 	border-bottom: 4px dotted;
 	padding: 1rem 0 1rem 0;
 	background-color: #dcdcdc;
+	color: black;
 }
 
 .hidden {

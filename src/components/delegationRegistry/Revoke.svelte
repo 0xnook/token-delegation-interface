@@ -5,7 +5,6 @@ import { connectedToSupportedChain, currentTheme } from '../../store';
 import HammerLoader from '../HammerLoader.svelte';
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
 import RevokeItemPaginator from './RevokeItemPaginator.svelte';
-
 import PuzzledMan from '../../../static/illustrations/puzzled.svg';
 
 let delegateWalletPromise: Promise<string[]> | undefined;
@@ -64,8 +63,9 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 						<div class:dark={$currentTheme === 'dark'}><PuzzledMan /></div>
 						No wallet delegates
 					</div>
+				{:else}
+					<RevokeItemPaginator {delegates} columns={['Delegate', '']} />
 				{/if}
-				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -80,8 +80,9 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 						<div class:dark={$currentTheme === 'dark'}><PuzzledMan /></div>
 						No contract delegates
 					</div>
+				{:else}
+					<RevokeItemPaginator {delegates} columns={['Delegate', 'Contract', '']} />
 				{/if}
-				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -96,8 +97,9 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 						<div class:dark={$currentTheme === 'dark'}><PuzzledMan /></div>
 						No token delegates
 					</div>
+				{:else}
+					<RevokeItemPaginator {delegates} columns={['Delegate', 'Contract', 'Header', '']} />
 				{/if}
-				<RevokeItemPaginator {delegates} />
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
