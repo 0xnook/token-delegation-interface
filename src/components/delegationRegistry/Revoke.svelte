@@ -1,16 +1,15 @@
 <script lang="ts">
 import { contracts, connected, signerAddress, chainId } from 'svelte-ethers-store';
 
-import { connectedToSupportedChain } from '../../store';
+import { connectedToSupportedChain, currentTheme } from '../../store';
 import HammerLoader from '../HammerLoader.svelte';
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
 import RevokeItemPaginator from './RevokeItemPaginator.svelte';
+import PuzzledMan from '../../../static/illustrations/puzzled.svg';
 
-import type { RevokeKind } from '../../app.d.ts';
-
-let delegateWalletPromise: Promise<string[]>;
-let delegateTokenPromise: Promise<string[][]>;
-let delegateContractPromise: Promise<string[][]>;
+let delegateWalletPromise: Promise<string[]> | undefined;
+let delegateTokenPromise: Promise<DelegateResponse[]> | undefined;
+let delegateContractPromise: Promise<DelegateResponse[]> | undefined;
 
 export let revokeKind: RevokeKind;
 
@@ -18,7 +17,7 @@ let revokeVault: string;
 
 $: contractKey = 'delegationRegistry' + $chainId;
 
-$: if (!$connected) {
+$: if (!$connected || !connectedToSupportedChain) {
 	delegateWalletPromise = undefined;
 	delegateContractPromise = undefined;
 	delegateTokenPromise = undefined;
@@ -59,8 +58,14 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
-				{delegates.length === 0 ? 'No wallet delegates' : ''}
-				<RevokeItemPaginator {delegates} />
+				{#if delegates.length === 0}
+					<div class="empty-items">
+						<div class:dark={$currentTheme === 'dark'}><PuzzledMan /></div>
+						No wallet delegates
+					</div>
+				{:else}
+					<RevokeItemPaginator {delegates} columns={['Delegate', '']} />
+				{/if}
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -70,13 +75,16 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
-				{delegates.length === 0 ? 'No contract delegates' : ''}
-				<RevokeItemPaginator {delegates} />
+				{#if delegates.length === 0}
+					<div class="empty-items">
+						<div class:dark={$currentTheme === 'dark'}><PuzzledMan /></div>
+						No contract delegates
+					</div>
+				{:else}
+					<RevokeItemPaginator {delegates} columns={['Delegate', 'Contract', '']} />
+				{/if}
 			{/if}
 		{:catch err}
-			sdasdsa
-			{$chainId}
-			{$contracts[contractKey].address}
 			Error fetching delegates {err.code}
 		{/await}
 	{:else if revokeKind === 'token'}
@@ -84,8 +92,14 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 			<div class="loader"><HammerLoader /></div>
 		{:then delegates}
 			{#if delegates && 'length' in delegates}
-				{delegates.length === 0 ? 'No token delegates' : ''}
-				<RevokeItemPaginator {delegates} />
+				{#if delegates.length === 0}
+					<div class="empty-items">
+						<div class:dark={$currentTheme === 'dark'}><PuzzledMan /></div>
+						No token delegates
+					</div>
+				{:else}
+					<RevokeItemPaginator {delegates} columns={['Delegate', 'Contract', 'Header', '']} />
+				{/if}
 			{/if}
 		{:catch err}
 			Error fetching delegates {err.code}
@@ -149,6 +163,18 @@ button:disabled {
 	justify-content: center;
 	align-items: center;
 	margin: 3rem auto;
+}
+
+.empty-items {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5rem;
+}
+
+.dark {
+	filter: invert(1) contrast(50%) brightness(90%);
 }
 
 @media (max-width: 750px) {

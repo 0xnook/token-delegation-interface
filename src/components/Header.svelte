@@ -23,7 +23,7 @@ import { toShortAddress } from '../utils';
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
-	margin: 1rem;
+	margin: 0 1rem 0 1rem;
 	color: var(--outline-color);
 }
 
@@ -34,6 +34,6 @@ button {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
-	margin-top: 0.2rem;
+	margin-top: 0.1rem;
 }
 </style>

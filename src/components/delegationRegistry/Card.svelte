@@ -1,25 +1,30 @@
 <script lang="ts">
 import NavBar from './NavBar.svelte';
+import { currentTheme } from '../../store';
 
-export let header;
-export let selectedTab;
+export let header: string;
+export let selectedTab: RevokeKind;
 export let shadow = 'left';
 
-export let navOptions;
+export let navOptions: NavOption[];
 </script>
 
 <section class:shadow-left={shadow === 'left'} class:shadow-right={shadow === 'right'} class="card">
 	<h1 class="header">{header}</h1>
+
+	<div class="graphic" class:dark={$currentTheme === 'dark'}>
+		<slot name="illustration" />
+	</div>
+
 	<NavBar options={navOptions} bind:selected={selectedTab} />
-	<div class="graphic" />
-	<slot />
+
+	<slot name="content" />
 </section>
 
 <style>
 .card {
 	border: 2px solid;
 	width: 45rem;
-	min-height: 50rem;
 }
 
 .shadow-left {
@@ -50,10 +55,14 @@ export let navOptions;
 }
 
 .graphic {
-	display: border;
+	display: flex;
 	height: 10rem;
-	background-color: grey;
+	border: 1px solid --var(--outline-color);
 	width: 90%;
-	margin: auto;
+	margin: 1rem auto;
+}
+
+.dark {
+	filter: invert(1) contrast(65%) brightness(120%);
 }
 </style>

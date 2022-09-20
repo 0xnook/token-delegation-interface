@@ -1,6 +1,7 @@
 <!-- Adapted from https://codepen.io/PaulinaSurazynska/details/bGVpBOb -->
 <script lang="ts">
 import { onMount } from 'svelte';
+import { currentTheme } from '../store';
 import Moon from '../../static/icons/moon-solid.svg';
 import Sun from '../../static/icons/sun-solid.svg';
 
@@ -21,11 +22,11 @@ function setCssVars(name: string, value: string) {
 	refreshCssVars();
 }
 
-let currentTheme;
+/* let currentTheme; */
 const applyTheme = () => {
 	const preferredTheme = prefersDarkThemes() ? 'dark' : 'light';
-	currentTheme = localStorage.getItem('theme') ?? preferredTheme;
-	if (currentTheme === 'dark') {
+	$currentTheme = localStorage.getItem('theme') ?? preferredTheme;
+	if ($currentTheme === 'dark') {
 		setCssVars('background-color', '#333');
 		setCssVars('outline-color', '#fdfdfd');
 		document.body.classList.remove('light');
@@ -58,7 +59,7 @@ onMount(() => {
 
 <div>
 	<input
-		checked={currentTheme !== 'dark'}
+		checked={$currentTheme !== 'dark'}
 		on:click={toggleTheme}
 		type="checkbox"
 		class="checkbox"

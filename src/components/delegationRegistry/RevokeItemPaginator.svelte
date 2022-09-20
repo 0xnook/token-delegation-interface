@@ -1,53 +1,144 @@
 <script lang="ts">
-import RevokeListItem from './RevokeItem.svelte';
+import { chainId, contracts, chainData } from 'svelte-ethers-store';
+import { nftExplorerURL } from '../../constants';
 
-import ArrowLeft from '../../../static/icons/arrow-left.svg';
-import ArrowRight from '../../../static/icons/arrow-right.svg';
+import Table from '../Table.svelte';
 
-export let delegates;
+export let columns: string[];
+export let delegates: DelegateResponse[] | string[];
+
 let page = 0;
 
 $: itemCount = delegates?.length ? delegates.length : 0;
 $: pageCount = itemCount > 0 ? Math.ceil(itemCount / 4) - 1 : 0;
 $: firstPageItem = 4 * page;
+
+$: isFirstPage = page === 0;
+$: isLastPage = page === pageCount;
+
+$: contractKey = 'delegationRegistry' + $chainId;
+
+let rows: TableCell[][];
+$: contractKey &&
+	(rows = delegates.map((delegate) => {
+		if (typeof delegate === 'object') {
+			let cells: TableCell[] = [
+				{
+					value: delegate.delegate,
+					onClick:
+						'explorers' in $chainData
+							? () => window.open($chainData?.explorers[0]?.url + '/address/' + delegate, '_blank')
+							: undefined
+				}
+			];
+			if (delegate?.contract_ !== undefined) {
+				cells.push({
+					value: delegate.contract_,
+					onClick:
+						'explorers' in $chainData
+							? () => window.open($chainData?.explorers[0]?.url + '/address/' + delegate, '_blank')
+							: undefined
+				});
+			}
+			if (delegate?.tokenId !== undefined) {
+				cells.push({
+					value: delegate.tokenId,
+					onClick:
+						$chainId in nftExplorerURL
+							? () =>
+									window.open(
+										'https://polygon.nftscan.com' +
+											'/' +
+											delegate.contract_ +
+											'/' +
+											delegate.tokenId,
+										'_blank'
+									)
+							: undefined
+				});
+			}
+			if (cells.length > 0) {
+				cells.push({
+					value: 'Revoke',
+					onClick: () => $contracts[contractKey].revokeDelegate(delegate.delegate)
+				});
+			}
+			return cells;
+		} else {
+			return [
+				{
+					value: delegate,
+					onClick: () =>
+						window.open($chainData?.explorers[0]?.url + '/address/' + delegate, '_blank')
+				},
+				{
+					value: 'Revoke',
+					onClick: () => $contracts[contractKey].revokeDelegate(delegate)
+				}
+			];
+		}
+	}));
 </script>
 
-<div class="outer-container">
-	<div class="arrow" on:click={() => page--} class:hidden={page === 0}><ArrowLeft /></div>
-	<div class="inner-container">
-		{#each delegates.slice(firstPageItem, firstPageItem + 4) as delegate}
-			<RevokeListItem
-				delegateAddress={delegate?.delegate ? delegate.delegate : delegate}
-				contractAddress={delegate.contract_}
-				tokenId={delegate.tokenId}
-			/>
-		{/each}
+<div class="container">
+	<Table {columns} rows={rows.slice(firstPageItem, firstPageItem + 5)} />
+
+	<div class="page-picker" class:hidden={pageCount === 0}>
+		<div class="arrow" on:click={() => (!isFirstPage ? page-- : '')} class:hidden={isFirstPage}>
+			←
+		</div>
+		<div class="not-selected" on:click={() => page--}>{!isFirstPage ? page : ''}</div>
+		<div class="selected">{page + 1}</div>
+		<div class="not-selected" on:click={() => page++}>{page !== pageCount ? page + 2 : ''}</div>
+		<div class="arrow" on:click={() => (!isLastPage ? page++ : '')} class:hidden={isLastPage}>
+			→
+		</div>
 	</div>
-	<div class="arrow" on:click={() => page++} class:hidden={pageCount === page}><ArrowRight /></div>
 </div>
 
 <style>
-.outer-container {
+.container {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-evenly;
 	margin: auto;
-	width: 40rem;
-	height: 30rem;
+	width: 30rem;
+	height: 100%;
 }
 
-.inner-container {
+.page-picker {
 	display: flex;
-	margin: 9.5rem auto;
-	flex-wrap: wrap;
-	width: 30rem;
-	gap: 1rem;
-	justify-content: flex-start;
+	font-size: 1rem;
+	justify-content: center;
+	align-items: baseline;
+	margin-bottom: 1rem;
+	height: 2rem;
+}
+
+.not-selected {
+	opacity: 0.6;
+}
+
+.selected,
+.not-selected {
+	margin: 0 0.5rem 0 0.5rem;
+	cursor: pointer;
+}
+
+.selected {
+	text-align: center;
+	width: 1.2rem;
+	height: 1.2rem;
+	border-bottom: 1px solid var(--outline-color);
+	padding: 0.2rem;
+	cursor: pointer;
 }
 
 .arrow {
-	width: 2.5rem;
+	width: 1rem;
 	cursor: pointer;
+	margin: 0 1rem 0 1rem;
 }
 
 .hidden {
@@ -55,17 +146,8 @@ $: firstPageItem = 4 * page;
 }
 
 @media (max-width: 750px) {
-	.outer-container {
-		width: 95%;
-		font-size: 0.8rem;
-	}
-	.inner-container {
-		width: 25rem;
-		/* font-size: 0.5rem; */
-	}
-
-	.arrow {
-		width: 1.5rem;
+	.container {
+		width: 85%;
 	}
 }
 </style>

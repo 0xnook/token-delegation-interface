@@ -2,8 +2,8 @@
 import Card from './Card.svelte';
 import Delegate from './Delegate.svelte';
 import Revoke from './Revoke.svelte';
-
-import type { DelegateKind, RevokeKind } from '../../app.d.ts';
+import King from '../../../static/illustrations/king.svg';
+import Decapitation from '../../../static/illustrations/decapitation.svg';
 
 let selectedDelegateTab: DelegateKind = 'wallet';
 let selectedRevokeTab: RevokeKind = 'wallet';
@@ -30,14 +30,15 @@ $: outerWidth = 0;
 
 <svelte:window bind:outerWidth />
 
-<div class="container">
+<main class="container">
 	<Card
 		shadow="left"
 		header="DÊLEGATE"
 		navOptions={delegateNavOptions}
 		bind:selectedTab={selectedDelegateTab}
 	>
-		<Delegate delegateKind={selectedDelegateTab} />
+		<King width="100%" slot="illustration" />
+		<Delegate slot="content" delegateKind={selectedDelegateTab} />
 	</Card>
 
 	<Card
@@ -46,9 +47,10 @@ $: outerWidth = 0;
 		bind:selectedTab={selectedRevokeTab}
 		navOptions={revokeNavOptions}
 	>
-		<Revoke revokeKind={selectedRevokeTab} />
+		<Decapitation slot="illustration" height="90%" width="100%" />
+		<Revoke slot="content" revokeKind={selectedRevokeTab} />
 	</Card>
-</div>
+</main>
 
 <style>
 .container {
@@ -57,12 +59,12 @@ $: outerWidth = 0;
 	margin: auto auto 3rem;
 	gap: 3rem;
 	justify-content: center;
+	height: 100%;
 }
 
 @media (max-width: 750px) {
 	.container {
 		width: 95%;
-		cursor: pointer;
 	}
 }
 </style>

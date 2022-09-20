@@ -1,6 +1,9 @@
-{ mkShell, git, nodejs, solc, foundry-bin }:
-
-mkShell {
+{ mkShell, git, nodejs-16_x, solc, foundry-bin }:
+let 
+    # pin node version to fix annoying linting bug
+    # https://github.com/coc-extensions/coc-svelte/issues/52
+    nodejs = nodejs-16_x;
+in mkShell {
     nativeBuildInputs = [ git nodejs foundry-bin solc ];
     shellHook = ''
         # check if node dependencies are installed

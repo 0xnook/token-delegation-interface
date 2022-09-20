@@ -1,9 +1,9 @@
 <script lang="ts">
 /* Adapted from https://codepen.io/devesh8/pen/MWYEJEP */
-export let label;
+export let label: string;
 export let inputType = 'text';
 export let placeholder = '';
-export let value;
+export let value: string;
 </script>
 
 <div class="did-floating-label-content">

@@ -43,7 +43,6 @@ export async function handleConnect(type: string) {
 
 export async function handleMetamaskConnect() {
 	await defaultEvmStores.setProvider();
-	console.log(get(defaultEvmStores.provider));
 	providerType.set('metamask');
 	localStorage.setItem('providertype', 'metamask');
 }
