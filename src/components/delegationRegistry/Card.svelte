@@ -65,4 +65,10 @@ export let navOptions: NavOption[];
 .dark {
 	filter: invert(1) contrast(65%) brightness(120%);
 }
+
+@media (max-width: 1495px) {
+	.card {
+		min-height: 45rem;
+	}
+}
 </style>

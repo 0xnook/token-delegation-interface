@@ -5,7 +5,7 @@ import { connectedToSupportedChain, currentTheme } from '../../store';
 import HammerLoader from '../HammerLoader.svelte';
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
 import RevokeItemPaginator from './RevokeItemPaginator.svelte';
-import PuzzledMan from '../../../static/illustrations/puzzled.svg';
+import PuzzledMan from '../../assets/illustrations/puzzled.svg';
 
 let delegateWalletPromise: Promise<string[]> | undefined;
 let delegateTokenPromise: Promise<DelegateResponse[]> | undefined;
@@ -30,6 +30,7 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 	} else if (revokeKind === 'contract') {
 		delegateContractPromise = $contracts[contractKey].getContractLevelDelegations($signerAddress);
 	} else if (revokeKind === 'token') {
+		
 		delegateTokenPromise = $contracts[contractKey].getTokenLevelDelegations($signerAddress);
 	}
 
@@ -98,7 +99,7 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 						No token delegates
 					</div>
 				{:else}
-					<RevokeItemPaginator {delegates} columns={['Delegate', 'Contract', 'Header', '']} />
+					<RevokeItemPaginator {delegates} columns={['Delegate', 'Contract', 'Token ID', '']} />
 				{/if}
 			{/if}
 		{:catch err}

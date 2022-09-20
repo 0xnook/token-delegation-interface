@@ -2,8 +2,8 @@
 <script lang="ts">
 import { onMount } from 'svelte';
 import { currentTheme } from '../store';
-import Moon from '../../static/icons/moon-solid.svg';
-import Sun from '../../static/icons/sun-solid.svg';
+import Moon from '../assets/icons/moon-solid.svg';
+import Sun from '../assets/icons/sun-solid.svg';
 
 const prefersDarkThemes = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
 

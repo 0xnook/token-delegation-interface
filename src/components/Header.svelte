@@ -12,7 +12,7 @@ import { toShortAddress } from '../utils';
 		<button
 			on:click={() => {
 				$accountModalHidden = false;
-			}}>{$signerAddress ? toShortAddress($signerAddress) : 'Conectar'}</button
+			}}>{$signerAddress ? toShortAddress($signerAddress) : 'Connect'}</button
 		>
 	</div>
 </header>

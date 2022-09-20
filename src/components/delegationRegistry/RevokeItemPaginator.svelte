@@ -60,7 +60,8 @@ $: contractKey &&
 			if (cells.length > 0) {
 				cells.push({
 					value: 'Revoke',
-					onClick: () => $contracts[contractKey].revokeDelegate(delegate.delegate)
+					onClick: () => $contracts[contractKey].revokeDelegate(delegate.delegate),
+					isButton: true
 				});
 			}
 			return cells;
@@ -73,7 +74,9 @@ $: contractKey &&
 				},
 				{
 					value: 'Revoke',
-					onClick: () => $contracts[contractKey].revokeDelegate(delegate)
+					onClick: () => $contracts[contractKey].revokeDelegate(delegate),
+					small: true,
+					isButton: true
 				}
 			];
 		}

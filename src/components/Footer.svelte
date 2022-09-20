@@ -1,6 +1,6 @@
 <script lang="ts">
 import ThemeToggle from './ThemeToggle.svelte';
-import Github from '../../static/icons/github.svg';
+import Github from '../assets/icons/github.svg';
 </script>
 
 <footer class="container">
