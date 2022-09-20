@@ -17,8 +17,6 @@ $: isFirstPage = page === 0;
 $: isLastPage = page === pageCount;
 
 $: contractKey = 'delegationRegistry' + $chainId;
-console.log('delegationRegistry' + $chainId);
-console.log(contractKey);
 
 let rows: TableCell[][];
 $: contractKey &&
@@ -67,7 +65,6 @@ $: contractKey &&
 			}
 			return cells;
 		} else {
-			console.log($chainId);
 			return [
 				{
 					value: delegate,
@@ -134,7 +131,6 @@ $: contractKey &&
 	width: 1.2rem;
 	height: 1.2rem;
 	border-bottom: 1px solid var(--outline-color);
-	/* margin: 0 1rem 0 1rem; */
 	padding: 0.2rem;
 	cursor: pointer;
 }

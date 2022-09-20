@@ -10,6 +10,13 @@ export const contractAddresses: Record<number | string, ContractAddress> = {
 	'0x1': {
 		delegationRegistry: '0x00000000b1BBFe1BF5C5934c4bb9c30FEF15E57A'
 	},
+	// polygon
+	137: {
+		delegationRegistry: '0x00000000b1BBFe1BF5C5934c4bb9c30FEF15E57A'
+	},
+	'0x89': {
+		delegationRegistry: '0x00000000b1BBFe1BF5C5934c4bb9c30FEF15E57A'
+	},
 	// goerli
 	5: {
 		delegationRegistry: '0x00000000b1BBFe1BF5C5934c4bb9c30FEF15E57A'

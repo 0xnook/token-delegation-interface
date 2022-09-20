@@ -17,7 +17,7 @@ let revokeVault: string;
 
 $: contractKey = 'delegationRegistry' + $chainId;
 
-$: if (!$connected) {
+$: if (!$connected || !connectedToSupportedChain) {
 	delegateWalletPromise = undefined;
 	delegateContractPromise = undefined;
 	delegateTokenPromise = undefined;
