@@ -51,7 +51,7 @@ function addNewDelegate() {
 		{#if delegateKind === 'token'}
 			<InputFloatingLabel
 				bind:value={newDelegateTokenId}
-				label="TokenID"
+				label="Token ID"
 				inputType="number"
 				placeholder="0"
 			/>
