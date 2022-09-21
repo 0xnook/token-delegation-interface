@@ -82,8 +82,8 @@ tr {
 	font-weight: bold;
 	cursor: pointer;
 	box-shadow: var(--background-color) -1px 1px, var(--background-color) -2px 2px,
-		var(--background-color) -3px 3px, var(--background-color) -4px 4px, var(--background-color) -5px 5px,
-		var(--background-color) -6px 6px;
+		var(--background-color) -3px 3px, var(--background-color) -4px 4px,
+		var(--background-color) -5px 5px, var(--background-color) -6px 6px;
 	transform: translate3d(6px, -6px, 0);
 	transition-delay: 0s;
 	transition-duration: 0.4s;

@@ -5,10 +5,11 @@ export let options: Record<string | number, string>;
 export let defaultValue: string;
 export let handleClickFunc: (key: string) => void;
 // used when defaultValue is not in options
-export let fallBackPlaceHolder = ''; 
+export let fallBackPlaceHolder = '';
 
 let isClickExpanded = false;
 </script>
+
 <ul>
 	<li class="box">
 		<div class="title" on:click={() => (isClickExpanded = !isClickExpanded)}>
@@ -19,7 +20,7 @@ let isClickExpanded = false;
 				<li
 					class="option"
 					on:click={() => (isClickExpanded = false)}
-          on:click={() => handleClickFunc(key)}
+					on:click={() => handleClickFunc(key)}
 				>
 					{value}
 				</li>
@@ -31,7 +32,7 @@ let isClickExpanded = false;
 <style>
 /* resets */
 ul {
-  display: inline-block;
+	display: inline-block;
 	list-style: none;
 	padding: 0;
 }
@@ -58,7 +59,7 @@ li:focus-within > ul {
 }
 
 .box {
-  width: 8rem;
+	width: 8rem;
 	border: 2px dotted var(--outline-color);
 	color: var(--outline-color);
 	background-color: var(--background-color);
@@ -70,7 +71,6 @@ li:focus-within > ul {
 
 .title {
 	box-sizing: border-box;
-
 }
 
 .option {
@@ -82,8 +82,9 @@ li:focus-within > ul {
 	padding: 0.5rem;
 }
 
-.title:hover, .option:hover {
+.title:hover,
+.option:hover {
 	font-weight: bold;
-    filter: brightness(80%);
+	filter: brightness(80%);
 }
 </style>

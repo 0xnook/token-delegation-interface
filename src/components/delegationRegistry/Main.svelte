@@ -19,7 +19,7 @@ const delegateNavOptions = [
 	},
 	{
 		key: 'token',
-		value: 'Token'
+		value: 'NFT'
 	}
 ];
 

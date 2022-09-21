@@ -1,7 +1,7 @@
 <script lang="ts">
 import { signerAddress, chainData, chainId } from 'svelte-ethers-store';
 import { accountModalHidden } from '../store';
-import { toShortAddress, changeNetwork } from '../utils'; 
+import { toShortAddress, changeNetwork } from '../utils';
 import { chainOptions } from '../constants';
 
 import Select from './Select.svelte';
@@ -10,10 +10,15 @@ $: chainHex = 'chainId' in $chainData ? '0x' + $chainData.chainId.toString(16) :
 </script>
 
 <header class="header">
-	<h1>Token Delegation</h1>
+	<h1>DELEGATE.CASH</h1>
 	<div class="right">
 		{#if $chainId}
-			<Select options={chainOptions} defaultValue={$chainId.toString()} handleClickFunc={changeNetwork} fallBackPlaceHolder={$chainData?.name ? $chainData.name : ''}/>
+			<Select
+				options={chainOptions}
+				defaultValue={$chainId.toString()}
+				handleClickFunc={changeNetwork}
+				fallBackPlaceHolder={$chainData?.name ? $chainData.name : ''}
+			/>
 		{/if}
 		<button
 			on:click={() => {
@@ -35,21 +40,19 @@ $: chainHex = 'chainId' in $chainData ? '0x' + $chainData.chainId.toString(16) :
 
 button {
 	width: 9.2rem;
-	/* height: 2.5rem; */
 	align-self: center;
 	border: 2px dotted var(--outline-color);
 	padding: 0.5rem;
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
-	/* margin-top: 0.1rem; */
 	color: var(--outline-color);
 	background-color: var(--background-color);
 }
 
 button:hover {
 	font-weight: bold;
-  filter: brightness(150%);
+	filter: brightness(150%);
 }
 
 .right {
@@ -60,7 +63,7 @@ button:hover {
 	align-items: baseline;
 }
 
-@media(max-width: 581px) {
+@media (max-width: 581px) {
 	.right {
 		gap: 0;
 	}

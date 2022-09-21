@@ -30,7 +30,6 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 	} else if (revokeKind === 'contract') {
 		delegateContractPromise = $contracts[contractKey].getContractLevelDelegations($signerAddress);
 	} else if (revokeKind === 'token') {
-		
 		delegateTokenPromise = $contracts[contractKey].getTokenLevelDelegations($signerAddress);
 	}
 

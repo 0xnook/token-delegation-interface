@@ -4,7 +4,7 @@ interface ContractAddress {
 
 // for prompting user to switch changes via header select
 export const chainOptions: Record<string, string> = {
-  1: 'Ethereum',
+	1: 'Ethereum',
 	137: 'Polygon'
 };
 
@@ -24,10 +24,10 @@ export const contractAddresses: Record<number | string, ContractAddress> = {
 	// local node
 	1337: {
 		delegationRegistry: '0x5fbdb2315678afecb367f032d93f642f64180aa3'
-	},
+	}
 };
 
 export const nftExplorerURL: Record<number | string, string> = {
 	1: 'https://www.nftscan.com',
-	137: 'https://polygon.nftscan.com',
+	137: 'https://polygon.nftscan.com'
 };

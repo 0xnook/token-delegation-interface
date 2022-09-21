@@ -47,10 +47,9 @@ export async function handleMetamaskConnect() {
 
 		providerType.set('metamask');
 		localStorage.setItem('providertype', 'metamask');
-	} catch(e) {
+	} catch (e) {
 		console.log(e);
 	}
-
 }
 
 export async function attachContracts() {
@@ -70,12 +69,12 @@ export function numToHex(num: number | string) {
 	if (typeof num === 'string') {
 		num = parseInt(num);
 	}
-	return '0x' + num.toString(16)
+	return '0x' + num.toString(16);
 }
 
 // for converting hex to numbers and index contractAddresses or nftExplorerURL in constants
-export function alwaysNumber(n: number | string) { 
-	return utils.isHexString(n) ? parseInt(n.toString(), 16) : n
+export function alwaysNumber(n: number | string) {
+	return utils.isHexString(n) ? parseInt(n.toString(), 16) : n;
 }
 
 export function alwaysHex(n: number | string) {
@@ -101,14 +100,13 @@ export async function handleWalletConnectProvider() {
 	localStorage.setItem('providertype', 'walletconnect');
 }
 
-
 // // prompt user to change network via metamask
 export async function changeNetwork(chainId: number) {
-	const chainHex = alwaysHex(chainId)
+	const chainHex = alwaysHex(chainId);
 	// @ts-ignore:next-line
-	await get(provider).provider.request({ 
-		method: 'wallet_switchEthereumChain', 
-		params: [{chainId: chainHex}]
+	await get(provider).provider.request({
+		method: 'wallet_switchEthereumChain',
+		params: [{ chainId: chainHex }]
 	});
 	// }
 }
