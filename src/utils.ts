@@ -1,8 +1,8 @@
 import { get } from 'svelte/store';
-import { defaultEvmStores, chainId } from 'svelte-ethers-store';
-import { providers } from 'ethers';
+import { defaultEvmStores, chainId, provider } from 'svelte-ethers-store';
+import { providers, utils } from 'ethers';
 import WalletConnectProvider from '@walletconnect/web3-provider/dist/umd/index.min';
-import type { Provider } from 'ethers';
+// import type { Provider } from 'ethers';
 
 import { IDelegationRegistryABI } from './abis/abis';
 import { contractAddresses } from './constants';
@@ -42,9 +42,15 @@ export async function handleConnect(type: string) {
 }
 
 export async function handleMetamaskConnect() {
-	await defaultEvmStores.setProvider();
-	providerType.set('metamask');
-	localStorage.setItem('providertype', 'metamask');
+	try {
+		await defaultEvmStores.setProvider();
+
+		providerType.set('metamask');
+		localStorage.setItem('providertype', 'metamask');
+	} catch(e) {
+		console.log(e);
+	}
+
 }
 
 export async function attachContracts() {
@@ -54,10 +60,26 @@ export async function attachContracts() {
 		const contractKey = 'delegationRegistry' + chain;
 		await defaultEvmStores.attachContract(
 			contractKey,
-			contractAddresses[chain].delegationRegistry,
+			contractAddresses[alwaysNumber(chain)].delegationRegistry,
 			IDelegationRegistryABI
 		);
 	}
+}
+
+export function numToHex(num: number | string) {
+	if (typeof num === 'string') {
+		num = parseInt(num);
+	}
+	return '0x' + num.toString(16)
+}
+
+// for converting hex to numbers and index contractAddresses or nftExplorerURL in constants
+export function alwaysNumber(n: number | string) { 
+	return utils.isHexString(n) ? parseInt(n.toString(), 16) : n
+}
+
+export function alwaysHex(n: number | string) {
+	return utils.isHexString(n) ? n : numToHex(n);
 }
 
 export async function handleWalletConnectProvider() {
@@ -77,4 +99,16 @@ export async function handleWalletConnectProvider() {
 	await defaultEvmStores.setProvider(web3Provider.provider as Provider);
 	providerType.set('walletconnect');
 	localStorage.setItem('providertype', 'walletconnect');
+}
+
+
+// // prompt user to change network via metamask
+export async function changeNetwork(chainId: number) {
+	const chainHex = alwaysHex(chainId)
+	// @ts-ignore:next-line
+	await get(provider).provider.request({ 
+		method: 'wallet_switchEthereumChain', 
+		params: [{chainId: chainHex}]
+	});
+	// }
 }
