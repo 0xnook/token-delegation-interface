@@ -26,7 +26,6 @@ export let rows: TableCell[][];
 
 <style>
 th {
-	font-weight: 300;
 	line-height: 1em;
 	font-weight: bold;
 	font-size: 1rem;
