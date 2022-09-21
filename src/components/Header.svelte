@@ -5,8 +5,6 @@ import { toShortAddress, changeNetwork } from '../utils';
 import { chainOptions } from '../constants';
 
 import Select from './Select.svelte';
-
-$: chainHex = 'chainId' in $chainData ? '0x' + $chainData.chainId.toString(16) : '0x1';
 </script>
 
 <header class="header">
