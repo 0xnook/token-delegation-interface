@@ -77,7 +77,6 @@ tr {
 
 .container td:hover {
 	background-color: #949494;
-	/* color: var(--outline-color); */
 	font-weight: bold;
 	cursor: pointer;
 	box-shadow: var(--background-color) -1px 1px, var(--background-color) -2px 2px,

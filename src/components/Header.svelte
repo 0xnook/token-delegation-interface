@@ -63,6 +63,7 @@ button:hover {
 
 @media (max-width: 581px) {
 	.right {
+		margin-top: 1rem;
 		gap: 0;
 	}
 }
