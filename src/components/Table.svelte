@@ -77,7 +77,6 @@ tr {
 
 .container td:hover {
 	background-color: #949494;
-	font-weight: bold;
 	cursor: pointer;
 	box-shadow: var(--background-color) -1px 1px, var(--background-color) -2px 2px,
 		var(--background-color) -3px 3px, var(--background-color) -4px 4px,
@@ -90,6 +89,7 @@ tr {
 }
 
 .button {
+	font-weight: bold !important;
 	color: var(--background-color);
 	background-color: var(--outline-color) !important;
 	max-width: 3rem !important;

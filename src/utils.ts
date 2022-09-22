@@ -95,16 +95,16 @@ export async function handleWalletConnectProvider() {
 
 	//  Wrap with Web3Provider from ethers.js
 	const web3Provider = new providers.Web3Provider(wcProvider);
-	await defaultEvmStores.setProvider(web3Provider.provider as Provider);
+	await defaultEvmStores.setProvider(web3Provider.provider);
 	providerType.set('walletconnect');
 	localStorage.setItem('providertype', 'walletconnect');
 }
 
 // // prompt user to change network via metamask
-export async function changeNetwork(chainId: number) {
+export function changeNetwork(chainId: number | string) {
 	const chainHex = alwaysHex(chainId);
 	// @ts-ignore:next-line
-	await get(provider).provider.request({
+	get(provider).provider.request({
 		method: 'wallet_switchEthereumChain',
 		params: [{ chainId: chainHex }]
 	});
