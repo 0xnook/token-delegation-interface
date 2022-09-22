@@ -2,8 +2,8 @@
 import Card from './Card.svelte';
 import Delegate from './Delegate.svelte';
 import Revoke from './Revoke.svelte';
-import King from '../../../static/illustrations/king.svg';
-import Decapitation from '../../../static/illustrations/decapitation.svg';
+import King from '../../assets/illustrations/king.svg';
+import Decapitation from '../../assets/illustrations/decapitation.svg';
 
 let selectedDelegateTab: DelegateKind = 'wallet';
 let selectedRevokeTab: RevokeKind = 'wallet';
@@ -19,7 +19,7 @@ const delegateNavOptions = [
 	},
 	{
 		key: 'token',
-		value: 'Token'
+		value: 'NFT'
 	}
 ];
 
@@ -64,7 +64,7 @@ $: outerWidth = 0;
 
 @media (max-width: 750px) {
 	.container {
-		width: 95%;
+		width: 98%;
 	}
 }
 </style>

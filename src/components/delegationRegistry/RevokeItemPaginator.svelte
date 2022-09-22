@@ -10,8 +10,8 @@ export let delegates: DelegateResponse[] | string[];
 let page = 0;
 
 $: itemCount = delegates?.length ? delegates.length : 0;
-$: pageCount = itemCount > 0 ? Math.ceil(itemCount / 4) - 1 : 0;
-$: firstPageItem = 4 * page;
+$: pageCount = itemCount > 0 ? Math.ceil(itemCount / 5) - 1 : 0;
+$: firstPageItem = 5 * page;
 
 $: isFirstPage = page === 0;
 $: isLastPage = page === pageCount;
@@ -60,7 +60,8 @@ $: contractKey &&
 			if (cells.length > 0) {
 				cells.push({
 					value: 'Revoke',
-					onClick: () => $contracts[contractKey].revokeDelegate(delegate.delegate)
+					onClick: () => $contracts[contractKey].revokeDelegate(delegate.delegate),
+					isButton: true
 				});
 			}
 			return cells;
@@ -73,7 +74,9 @@ $: contractKey &&
 				},
 				{
 					value: 'Revoke',
-					onClick: () => $contracts[contractKey].revokeDelegate(delegate)
+					onClick: () => $contracts[contractKey].revokeDelegate(delegate),
+					small: true,
+					isButton: true
 				}
 			];
 		}

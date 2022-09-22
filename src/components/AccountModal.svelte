@@ -5,9 +5,9 @@ import { onMount, onDestroy } from 'svelte';
 import { clickOutside, toShortAddress, handleConnect } from '../utils';
 import { providerType } from '../store';
 
-import Copy from '../../static/icons/copy.svg';
-import Check from '../../static/icons/check.svg';
-import Link from '../../static/icons/link.svg';
+import Copy from '../assets/icons/copy.svg';
+import Check from '../assets/icons/check.svg';
+import Link from '../assets/icons/link.svg';
 
 export let hide = false;
 
@@ -60,12 +60,12 @@ onDestroy(() => {
 				</div>
 			</div>
 			<div class="round-border modal-body">
-				<p>{toShortAddress($signerAddress)}</p>
+				<p>{toShortAddress($signerAddress, 8)}</p>
 				<br />
 				<div class="mini-buttons">
 					{#if !copying}
 						<div on:click={handleCopy} class="mini-button">
-							<Copy class="mini-button" width="0.8rem" />
+							<Copy width="0.8rem" />
 							Copy address
 						</div>
 					{:else}

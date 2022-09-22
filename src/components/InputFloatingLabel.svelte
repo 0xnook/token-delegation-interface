@@ -8,13 +8,25 @@ export let value: string;
 
 <div class="did-floating-label-content">
 	{#if inputType === 'text'}
-		<input class="did-floating-input" bind:value type="text" {placeholder} />
-		<label class="did-floating-label">
+		<input
+			id="floating-input-text"
+			class="did-floating-input"
+			bind:value
+			type="text"
+			{placeholder}
+		/>
+		<label for="floating-input-text" class="did-floating-label">
 			{label}
 		</label>
 	{:else if inputType === 'number'}
-		<input class="did-floating-input" bind:value type="number" {placeholder} />
-		<label class="did-floating-label">
+		<input
+			id="floating-input-number"
+			class="did-floating-input"
+			bind:value
+			type="number"
+			{placeholder}
+		/>
+		<label for="floating-input-text" class="did-floating-label">
 			{label}
 		</label>
 	{/if}

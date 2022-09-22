@@ -5,7 +5,7 @@ import { connectedToSupportedChain, currentTheme } from '../../store';
 import HammerLoader from '../HammerLoader.svelte';
 import InputFloatingLabel from '../InputFloatingLabel.svelte';
 import RevokeItemPaginator from './RevokeItemPaginator.svelte';
-import PuzzledMan from '../../../static/illustrations/puzzled.svg';
+import PuzzledMan from '../../assets/illustrations/puzzled.svg';
 
 let delegateWalletPromise: Promise<string[]> | undefined;
 let delegateTokenPromise: Promise<DelegateResponse[]> | undefined;
@@ -98,7 +98,7 @@ $: if ($connectedToSupportedChain && $contracts[contractKey]) {
 						No token delegates
 					</div>
 				{:else}
-					<RevokeItemPaginator {delegates} columns={['Delegate', 'Contract', 'Header', '']} />
+					<RevokeItemPaginator {delegates} columns={['Delegate', 'Contract', 'Token ID', '']} />
 				{/if}
 			{/if}
 		{:catch err}
@@ -152,10 +152,22 @@ button {
 	cursor: pointer;
 	outline: inherit;
 	margin: auto;
+	font-weight: bold;
 }
 
 button:disabled {
 	cursor: not-allowed !important;
+}
+
+button:hover {
+	box-shadow: var(--outline-color) -1px 1px, var(--outline-color) -2px 2px,
+		var(--outline-color) -3px 3px, var(--outline-color) -4px 4px, var(--outline-color) -5px 5px,
+		var(--outline-color) -6px 6px;
+	transform: translate3d(6px, -6px, 0);
+	transition-delay: 0s;
+	transition-duration: 0.4s;
+	transition-property: all;
+	transition-timing-function: line;
 }
 
 .loader {

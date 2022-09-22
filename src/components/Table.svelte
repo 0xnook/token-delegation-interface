@@ -17,7 +17,7 @@ export let rows: TableCell[][];
 		{#each rows as row}
 			<tr>
 				{#each row as cell}
-					<td on:click={cell.onClick ?? undefined}>{cell.value}</td>
+					<td class:button={cell.isButton} on:click={cell.onClick ?? undefined}>{cell.value}</td>
 				{/each}
 			</tr>
 		{/each}
@@ -26,7 +26,6 @@ export let rows: TableCell[][];
 
 <style>
 th {
-	font-weight: 300;
 	line-height: 1em;
 	font-weight: bold;
 	font-size: 1rem;
@@ -56,7 +55,7 @@ th {
 	padding-bottom: 2%;
 	padding-top: 2%;
 	padding-left: 2%;
-	max-width: 1rem;
+	max-width: 4rem;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -77,17 +76,28 @@ tr {
 }
 
 .container td:hover {
-	background-color: var(--background-color);
-	color: var(--outline-color);
-	font-weight: bold;
+	background-color: #949494;
 	cursor: pointer;
-	box-shadow: var(--outline-color) -1px 1px, var(--outline-color) -2px 2px,
-		var(--outline-color) -3px 3px, var(--outline-color) -4px 4px, var(--outline-color) -5px 5px,
-		var(--outline-color) -6px 6px;
+	box-shadow: var(--background-color) -1px 1px, var(--background-color) -2px 2px,
+		var(--background-color) -3px 3px, var(--background-color) -4px 4px,
+		var(--background-color) -5px 5px, var(--background-color) -6px 6px;
 	transform: translate3d(6px, -6px, 0);
 	transition-delay: 0s;
 	transition-duration: 0.4s;
 	transition-property: all;
 	transition-timing-function: line;
+}
+
+.button {
+	font-weight: bold !important;
+	color: var(--background-color);
+	background-color: var(--outline-color) !important;
+	max-width: 3rem !important;
+	padding-right: 0 !important;
+}
+
+.button:hover {
+	color: var(--background-color);
+	background-color: var(--outline-color) !important;
 }
 </style>

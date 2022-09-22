@@ -25,4 +25,5 @@ type RevokeKind = DelegateKind | 'other';
 interface TableCell {
 	value: string | number;
 	onClick?: function;
+	isButton?: boolean; // for inverting color
 }
